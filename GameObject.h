@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-class Ball;
+class Character;
 
 const GLfloat colours[7][3] = {
        { 1.0, 0.0, 0.0 },
@@ -62,7 +62,7 @@ GLfloat r2 = r/2.0;
 
     virtual void display () = 0;
     virtual void update () = 0;
-    virtual bool collide (Ball *b) { return false; }
+    virtual bool collide (Character *c) { return false; }
 };
 
 #endif /* GAME_OBJEC_H_ */
