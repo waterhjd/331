@@ -1,0 +1,58 @@
+/*******************************
+ * This is the main game board.
+ * It is implemented as a Singleton: That measn there can only be one instance.
+ *******************************/
+#ifndef GAME_H_
+#define GAME_H_
+
+#include "Ball.h"
+
+class GameObject;
+class Ball;
+
+#define MAX_OBJECTS 50
+
+class Game {
+// Required portions for making this a Singleton.
+    public:
+        // Insead of a constructor, use this static method to create an instance
+        // (or used the already created instance) of Game
+        static Game& getInstance()
+        {
+            static Game    instance; // Guaranteed to be destroyed.
+                                  // Instantiated on first use.
+            return instance;
+        }
+    private:
+        // Make al the constructors private. If you want an instance, use the 
+        // getInstance() method above
+        Game() {};        // Default Constructor (the {} brackets) are needed here.
+        Game(Game const&);           // Don't Implement
+        void operator=(Game const&); // Don't implement
+
+// Now that we are  a Singleton, define the rest fo the class as usual.
+   private:
+      // window size 
+      float width;
+      float height;
+      static int interval;
+      int scoreHeight;
+      Ball myBall;
+      int gameObjects;
+      GameObject *myGameObjects[MAX_OBJECTS];
+   public:
+      // Functions for GL. key handles keyboard input. Run is the comuting loop
+      // Run calls update
+      static void key(unsigned char key, int x, int y);
+      static void run();
+      static void timer(int id);
+      void update();
+
+      GameObject *paddle() {return myGameObjects[0];};
+
+      void init();
+
+      GLfloat frand();
+};
+
+#endif /* GAME_H_ */
