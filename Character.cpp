@@ -16,7 +16,7 @@ void Character::display()
 void Character::update()
 { 
     // m_x += m_ball_speed_x * m_ball_speed;
-    m_position_y += m_speed_y * m_speed;
+    m_position_y += m_speed_y * m_speed * Gravity ;
 }
 
 Character::Character()
