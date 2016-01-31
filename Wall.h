@@ -8,7 +8,6 @@ class Wall: public GameObject {
    protected:
       int m_x1,m_y1, m_x2, m_y2;
       bool m_minwall;
-      int m_ouch;
       
    public:
     void display ();

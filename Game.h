@@ -47,6 +47,7 @@ class Game {
 
       // Items in the game
       Character m_myCharacter;
+			Character *m_character;
       int m_gameObjects;
       GameObject *m_myGameObjects[MAX_OBJECTS];
       int m_score;
@@ -62,7 +63,8 @@ class Game {
       void RenderString(float x, float y, void *font, const char* string);
       void updateScore(int addMe) {m_score += addMe;};
 
-      GameObject *paddle() {return m_myGameObjects[0];};
+      // GameObject *character() {return m_myGameObjects[0];};
+      GameObject *character() {return m_character;};
 
       void init();
 

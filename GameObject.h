@@ -17,7 +17,7 @@ const GLfloat colours[7][3] = {
        { 0.0, 0.0, 0.6 }  // dark-blue
 };
 
-const int Gravity = 3;
+const int Gravity = 1;
 
 class GameObject {
   public:

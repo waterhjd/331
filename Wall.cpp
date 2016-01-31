@@ -36,6 +36,7 @@ bool Wall::collide (Character *c)
       {
          if (c->getY() < m_y1+5)
          {
+						 c->stopJump();
 						 c->stopY();
          }
       }
@@ -57,5 +58,4 @@ Wall::Wall(int x_1, int y_1, int x_2, int y_2, bool min_wall)
    m_y1=y_1;
    m_y2=y_2;
    m_minwall = min_wall;
-   m_ouch = 0;
 }

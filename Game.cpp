@@ -49,14 +49,18 @@ void Game::run() {
 
 void Game::key(unsigned char key, int x, int y)
 {
-    // Paddle *myPaddle = dynamic_cast<Paddle*>(Game::getInstance().paddle());
+    Character *myCharacter = dynamic_cast<Character*>(Game::getInstance().character());
+    // Character *myCharacter = Game::m_character;
     switch (key)
     {
-        case 'n' :
-            // myPaddle->left();
+        case 'h' :
+						myCharacter->left();
             break;
-        case 'm':
-            // myPaddle->right();
+        case 'l':
+						myCharacter->right();
+            break;
+        case 'k':
+            myCharacter->jump();
             break;
     }
     //glutPostRedisplay();
@@ -76,9 +80,9 @@ void Game::RenderString(float x, float y, void *font, const char* string)
 
 void Game::update()
 {
-   m_myCharacter.update();
+   m_character->update();
    for(int i=0; i<m_gameObjects; i++)
-      m_myGameObjects[i]->collide(&m_myCharacter);
+      m_myGameObjects[i]->collide(m_character);
 
    for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->update();
@@ -92,15 +96,18 @@ void Game::update()
     sprintf(string, "Score:\n%d", m_score);
     RenderString(0, m_height-20, GLUT_BITMAP_TIMES_ROMAN_24, string);
 
-    m_myCharacter.display();
+    m_character->display();
     for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->display();
 }
 
 void Game::init() {
-    // Set up all the objects in the game that m_myCharacter can collide with in an array
+    // Set up all the objects in the game that m_character can collide with in an array
     // called m_myGameObjects. m_gameObjects tells how many are defined.
-    m_gameObjects = 0;
+    m_gameObjects = 0 ;
+		m_myGameObjects[m_gameObjects] = new Character();
+		m_gameObjects ++ ;
+    m_character = dynamic_cast<Character*>(m_myGameObjects[0]);
     // m_myGameObjects[m_gameObjects] = new Paddle(m_width/2,5); // Paddle
     // m_gameObjects++;
     // m_myGameObjects[m_gameObjects] = new Wall(m_scorePanelWidth,0,m_scorePanelWidth,m_height, true ); // Left Wall
