@@ -28,8 +28,8 @@ class Game {
         // getInstance() method above
         Game() {
            m_margine = 4;
-           m_width = 500;
-           m_height = 300;
+           m_width = 800;
+           m_height = 600;
            m_scorePanelWidth = 80;
         }; // Default Constructor (the {} brackets) are needed here, even if it is empty.
         Game(Game const&);           // Don't Implement

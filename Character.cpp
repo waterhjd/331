@@ -37,7 +37,7 @@ void Character::update()
 void Character::jump()
 {
 	if (!m_jumping) {
-		m_speed_y = 10;
+		m_speed_y = 20;
 		m_jumping = true;
 	}
 	// if (m_speed_y == 0) {
