@@ -44,6 +44,7 @@ class Game {
       int m_height;
       int m_margine;
       int m_scorePanelWidth;
+      GLuint m_splashTexture;
 
       // Items in the game
       Character m_myCharacter;
@@ -51,6 +52,7 @@ class Game {
       int m_gameObjects;
       GameObject *m_myGameObjects[MAX_OBJECTS];
       int m_score;
+      bool m_running;
    public:
       // Functions for GL. key handles keyboard input. Run is the comuting loop
       // Run calls update
@@ -67,6 +69,9 @@ class Game {
       GameObject *character() {return m_character;};
 
       void init();
+      bool isRunning();
+      void setRun(bool b);
+      void splash();
 
       GLfloat frand();
 };
