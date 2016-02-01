@@ -44,6 +44,7 @@ class Game {
       int m_height;
       int m_margine;
       int m_scorePanelWidth;
+      GLuint m_splashTexture;
 
       // Items in the game
       Character m_myCharacter;

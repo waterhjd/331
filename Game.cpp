@@ -80,13 +80,12 @@ void Game::RenderString(float x, float y, void *font, const char* string)
 
   glutBitmapString(font, string2);
 }
-void splash() {
+void Game::splash() {
  {
    // Other parts of the program have been doing speical things with
    // lights and textures. We want a flat rectangle so turn them all off.
    glDisable(GL_TEXTURE_2D); // Disable any textures. We want color!
    glDisable (GL_LIGHTING);  // Also turn off any lights
-   gl
    glLoadIdentity();//load identity matrix
 
    glEnable(GL_COLOR_MATERIAL); // Needed so glColor3f controls the color
@@ -103,10 +102,12 @@ void splash() {
 }
 void Game::update()
 {
+/*
    if (!isRunning()) {
       splash();
       return;
    }
+*/
    m_character->update();
    for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->collide(m_character);
