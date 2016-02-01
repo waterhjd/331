@@ -7,6 +7,7 @@
 #include <GL/freeglut.h>
 
 #include "ImageLoader.h"
+#include <netinet/in.h>
 
 
 GLuint ImageLoader::LoadTexture( const char * filename )
@@ -24,7 +25,7 @@ GLuint ImageLoader::LoadTexture( const char * filename )
      printf("Can't load picture file %s  \n",filename);
      return 0;
   }
-
+   
   width = 1024;
   height = 512;
 

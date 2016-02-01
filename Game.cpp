@@ -80,13 +80,12 @@ void Game::RenderString(float x, float y, void *font, const char* string)
 
   glutBitmapString(font, string2);
 }
-void splash() {
+void Game::splash() {
  {
    // Other parts of the program have been doing speical things with
    // lights and textures. We want a flat rectangle so turn them all off.
    glDisable(GL_TEXTURE_2D); // Disable any textures. We want color!
    glDisable (GL_LIGHTING);  // Also turn off any lights
-   gl
    glLoadIdentity();//load identity matrix
 
    glEnable(GL_COLOR_MATERIAL); // Needed so glColor3f controls the color
@@ -103,10 +102,11 @@ void splash() {
 }
 void Game::update()
 {
-   if (!isRunning()) {
+/*   if (!isRunning()) {
       splash();
       return;
    }
+*/
    m_character->update();
    for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->collide(m_character);
@@ -160,7 +160,7 @@ void Game::init() {
     glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB); // Use double buffering for smoother images
     glutInitWindowSize(m_width, m_height);
     glutInitWindowPosition(0, 0);
-    glutCreateWindow("Pong");
+    glutCreateWindow("Cockroach Vs. Unicorns");
 
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glShadeModel(GL_FLAT);
@@ -168,7 +168,7 @@ void Game::init() {
     glLoadIdentity();
     gluOrtho2D(0, m_width+m_margine, 0, m_height+m_margine);
 
-    m_splashTexture = ImageLoader::LoadTexture("../img/splash.png");
+//    m_splashTexture = ImageLoader::LoadTexture("images/cvuSplash.png");
 
    //In event-driven programming, like you have in interactive OpenGL 
    //applications, the main application loop generally does three things:
