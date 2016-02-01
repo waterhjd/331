@@ -92,7 +92,7 @@ void Game::splash() {
    glEnable(GL_TEXTURE_2D);
    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,GL_REPLACE);
    glBindTexture (GL_TEXTURE_2D, m_splashTexture);
-   ImageLoader::rectangle(0,0, m_width, m_height);
+   ImageLoader::rectangle(0,0, m_width-40, m_height-40);
 
       // Other parts of the program have been doing speical things with
    // lights and textures. We want a flat rectangle so turn them all off.
@@ -103,9 +103,9 @@ void Game::splash() {
    glEnable(GL_COLOR_MATERIAL); // Needed so glColor3f controls the color
 
    char string[1200];
-   sprintf(string, "Game Paused. Press space to continue.\n");
-   glColor3f(0.0, 0.0, 0.0); // Black Text
-   ImageLoader::RenderString(30, m_height-60, GLUT_BITMAP_TIMES_ROMAN_24, string);
+   sprintf(string, "Paused\n");
+   glColor3f(1.0, 0.0, 0.0); // Black Text
+   ImageLoader::RenderString((m_width/2)-40, m_height/2, GLUT_BITMAP_TIMES_ROMAN_24, string);
    glDisable(GL_COLOR_MATERIAL);
  
 }
@@ -122,12 +122,11 @@ void Game::update()
    glClearColor(1.0, 1.0, 1.0, 0.0);
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     // clear the screen
 //clear the screen
-/*
     // Display the current score
     char string[40];
-    sprintf(string, "Score:\n%d", m_score);
+    sprintf(string, "Score:%d\n", m_score);
+    sprintf(string, "Press P to Pause\n");
     RenderString(0, m_height-20, GLUT_BITMAP_TIMES_ROMAN_24, string);
-*/
 
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
