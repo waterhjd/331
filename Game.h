@@ -27,10 +27,9 @@ class Game {
         // Make al the constructors private. If you want an instance, use the 
         // getInstance() method above
         Game() {
-           m_margine = 4;
-           m_width = 800;
-           m_height = 600;
-           m_scorePanelWidth = 80;
+           m_margine = 0;
+           m_width = 600;
+           m_height = 440;
         }; // Default Constructor (the {} brackets) are needed here, even if it is empty.
         Game(Game const&);           // Don't Implement
         void operator=(Game const&); // Don't implement
@@ -43,7 +42,7 @@ class Game {
       int m_width;
       int m_height;
       int m_margine;
-      int m_scorePanelWidth;
+      GLuint m_splashTexture;
 
       // Items in the game
       Character m_myCharacter;
@@ -59,6 +58,7 @@ class Game {
       static void run();
       static void idle();
       static void timer(int id);
+      static bool c_running;
       void update();
 
       void RenderString(float x, float y, void *font, const char* string);
