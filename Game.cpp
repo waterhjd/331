@@ -11,6 +11,7 @@
 #include "Character.h"
 #include "GameObject.h"
 
+#include "ImageLoader.h"
 
 // We do not use this function yet, but you might want it.
 GLfloat Game::frand() {
@@ -53,6 +54,8 @@ void Game::key(unsigned char key, int x, int y)
     // Character *myCharacter = Game::m_character;
     switch (key)
     {
+        case ' ' :
+            if (Game::getInstance().isRunning()) Game::getInstance().setRun(true);
         case 'h' :
 						myCharacter->left();
             break;
@@ -77,9 +80,33 @@ void Game::RenderString(float x, float y, void *font, const char* string)
 
   glutBitmapString(font, string2);
 }
+void splash() {
+ {
+   // Other parts of the program have been doing speical things with
+   // lights and textures. We want a flat rectangle so turn them all off.
+   glDisable(GL_TEXTURE_2D); // Disable any textures. We want color!
+   glDisable (GL_LIGHTING);  // Also turn off any lights
+   gl
+   glLoadIdentity();//load identity matrix
 
+   glEnable(GL_COLOR_MATERIAL); // Needed so glColor3f controls the color
+   glColor3f(0.5f,0.7f,1.0f); //sky blue backcground
+   ImageLoader::rectangle(20, 20, m_width-40, m_height-40);
+
+   char string[1200];
+   sprintf(string, "Game Paused. Press space to continue.\n");
+   glColor3f(0.0, 0.0, 0.0); // Black Text
+   ImageLoader::RenderString(30, m_height-60, GLUT_BITMAP_TIMES_ROMAN_24, string);
+   glDisable(GL_COLOR_MATERIAL);
+}
+ 
+}
 void Game::update()
 {
+   if (!isRunning()) {
+      splash();
+      return;
+   }
    m_character->update();
    for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->collide(m_character);
@@ -100,6 +127,14 @@ void Game::update()
     for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->display();
 }
+bool Game::isRunning() {
+   return m_running;
+}
+
+void Game::setRun(bool b) {
+   m_running = b;
+}
+
 
 void Game::init() {
     // Set up all the objects in the game that m_character can collide with in an array
@@ -132,6 +167,8 @@ void Game::init() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(0, m_width+m_margine, 0, m_height+m_margine);
+
+    m_splashTexture = ImageLoader::LoadTexture("../img/splash.png");
 
    //In event-driven programming, like you have in interactive OpenGL 
    //applications, the main application loop generally does three things:
