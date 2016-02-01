@@ -94,7 +94,7 @@ void splash() {
    ImageLoader::rectangle(20, 20, m_width-40, m_height-40);
 
    char string[1200];
-   sprintf(string, "Game Paused. Press space to continue.\n");
+   sprintf(string, "Game Paused.\n");
    glColor3f(0.0, 0.0, 0.0); // Black Text
    ImageLoader::RenderString(30, m_height-60, GLUT_BITMAP_TIMES_ROMAN_24, string);
    glDisable(GL_COLOR_MATERIAL);
