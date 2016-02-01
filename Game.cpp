@@ -56,6 +56,7 @@ void Game::key(unsigned char key, int x, int y)
     {
         case ' ' :
             if (Game::getInstance().isRunning()) Game::getInstance().setRun(true);
+            break;
         case 'h' :
 						myCharacter->left();
             break;
@@ -161,7 +162,7 @@ void Game::init() {
     glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB); // Use double buffering for smoother images
     glutInitWindowSize(m_width, m_height);
     glutInitWindowPosition(0, 0);
-    glutCreateWindow("Pong");
+    glutCreateWindow("Cockroach vs. Unicorns");
 
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glShadeModel(GL_FLAT);
@@ -169,7 +170,7 @@ void Game::init() {
     glLoadIdentity();
     gluOrtho2D(0, m_width+m_margine, 0, m_height+m_margine);
 
-    m_splashTexture = ImageLoader::LoadTexture("../img/splash.png");
+    //m_splashTexture = ImageLoader::LoadTexture("images/cvuSplash.png");
 
    //In event-driven programming, like you have in interactive OpenGL 
    //applications, the main application loop generally does three things:
