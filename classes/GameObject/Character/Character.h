@@ -1,7 +1,7 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
 
-#include "GameObject.h"
+#include "../GameObject.h"
 #include <iostream>
 
 using namespace std;

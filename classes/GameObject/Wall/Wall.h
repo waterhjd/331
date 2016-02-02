@@ -1,8 +1,8 @@
 #ifndef WALL_H_
 #define WALL_H_
 
-#include "GameObject.h"
-#include "Character.h"
+#include "../GameObject.h"
+#include "../Character/Character.h"
 
 class Wall: public GameObject {
    protected:
