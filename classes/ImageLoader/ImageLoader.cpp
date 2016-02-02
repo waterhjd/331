@@ -7,7 +7,6 @@
 #include <GL/freeglut.h>
 
 #include "ImageLoader.h"
-#include <iostream>
 
 GLuint ImageLoader::LoadTexture( const char * filename, int &w, int &h )
 {

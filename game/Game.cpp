@@ -113,7 +113,6 @@ void Game::splash() {
 }
 void Game::update()
 {
-
    m_character->update();
    for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->collide(m_character);
@@ -190,7 +189,6 @@ void Game::init() {
     glLoadIdentity();
 
     gluOrtho2D(0, m_width, 0, m_height);
-
 
    //In event-driven programming, like you have in interactive OpenGL 
    //applications, the main application loop generally does three things:
