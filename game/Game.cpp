@@ -91,14 +91,6 @@ void Game::RenderString(float x, float y, void *font, const char* string)
   glutBitmapString(font, string2);
 }
 void Game::splash() {
-<<<<<<< HEAD:Game.cpp
- {
-   // Other parts of the program have been doing speical things with
-   // lights and textures. We want a flat rectangle so turn them all off.
-   glDisable(GL_TEXTURE_2D); // Disable any textures. We want color!
-   glDisable (GL_LIGHTING);  // Also turn off any lights
-   glLoadIdentity();//load identity matrix
-=======
    glEnable(GL_TEXTURE_2D);
    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,GL_REPLACE);
    //glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
@@ -108,35 +100,19 @@ void Game::splash() {
       // Other parts of the program have been doing speical things with
    // lights and textures. We want a flat rectangle so turn them all off.
    glDisable(GL_TEXTURE_2D); // Disable any textures. We want color!
->>>>>>> develop:game/Game.cpp
 
    glLoadIdentity();//load identity matrix
    glEnable(GL_COLOR_MATERIAL); // Needed so glColor3f controls the color
 
    char string[1200];
-<<<<<<< HEAD:Game.cpp
-   sprintf(string, "Game Paused.\n");
-   glColor3f(0.0, 0.0, 0.0); // Black Text
-   ImageLoader::RenderString(30, m_height-60, GLUT_BITMAP_TIMES_ROMAN_24, string);
-=======
    sprintf(string, "Paused\n");
    glColor3f(1.0, 0.0, 0.0); // Red Text
    ImageLoader::RenderString((m_width/2)-40, m_height/2, GLUT_BITMAP_TIMES_ROMAN_24, string);
->>>>>>> develop:game/Game.cpp
    glDisable(GL_COLOR_MATERIAL);
  
 }
 void Game::update()
 {
-<<<<<<< HEAD:Game.cpp
-/*   if (!isRunning()) {
-      splash();
-      return;
-   }
-*/
-=======
-
->>>>>>> develop:game/Game.cpp
    m_character->update();
    for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->collide(m_character);
@@ -201,11 +177,7 @@ void Game::init() {
     glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB); // Use double buffering for smoother images
     glutInitWindowSize(m_width, m_height);
     glutInitWindowPosition(0, 0);
-<<<<<<< HEAD:Game.cpp
-    glutCreateWindow("Cockroach Vs. Unicorns");
-=======
     glutCreateWindow("Cockroach vs. Unicorns");
->>>>>>> develop:game/Game.cpp
 
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glShadeModel(GL_SMOOTH);
@@ -216,12 +188,7 @@ void Game::init() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-<<<<<<< HEAD:Game.cpp
-//    m_splashTexture = ImageLoader::LoadTexture("images/cvuSplash.png");
-=======
     gluOrtho2D(0, m_width, 0, m_height);
-
->>>>>>> develop:game/Game.cpp
 
    //In event-driven programming, like you have in interactive OpenGL 
    //applications, the main application loop generally does three things:

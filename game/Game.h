@@ -42,10 +42,7 @@ class Game {
       int m_width;
       int m_height;
       int m_margine;
-<<<<<<< HEAD:Game.h
       int m_scorePanelWidth;
-=======
->>>>>>> develop:game/Game.h
       GLuint m_splashTexture;
 
       // Items in the game

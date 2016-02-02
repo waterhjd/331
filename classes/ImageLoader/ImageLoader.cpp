@@ -7,11 +7,6 @@
 #include <GL/freeglut.h>
 
 #include "ImageLoader.h"
-<<<<<<< HEAD:ImageLoader.cpp
-#include <netinet/in.h>
-=======
-#include <iostream>
->>>>>>> develop:classes/ImageLoader/ImageLoader.cpp
 
 GLuint ImageLoader::LoadTexture( const char * filename, int &w, int &h )
 {
@@ -28,15 +23,9 @@ GLuint ImageLoader::LoadTexture( const char * filename, int &w, int &h )
      printf("Can't load picture file %s  \n",filename);
      return 0;
   }
-<<<<<<< HEAD:ImageLoader.cpp
-   
-  width = 1024;
-  height = 512;
-=======
   //unsigned char header[54];
   width = 1024;//*(int*)&header;
   height = 768;
->>>>>>> develop:classes/ImageLoader/ImageLoader.cpp
 
    int fileSize;
    fseek(file, 2, SEEK_SET);
