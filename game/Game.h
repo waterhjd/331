@@ -5,7 +5,7 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include "Character.h"
+#include "../classes/GameObject/Moveable/Character/Character.h"
 
 class GameObject;
 class Character;
@@ -27,10 +27,9 @@ class Game {
         // Make al the constructors private. If you want an instance, use the 
         // getInstance() method above
         Game() {
-           m_margine = 4;
-           m_width = 800;
-           m_height = 600;
-           m_scorePanelWidth = 80;
+           m_margine = 0;
+           m_width = 600;
+           m_height = 440;
         }; // Default Constructor (the {} brackets) are needed here, even if it is empty.
         Game(Game const&);           // Don't Implement
         void operator=(Game const&); // Don't implement
@@ -43,7 +42,10 @@ class Game {
       int m_width;
       int m_height;
       int m_margine;
+<<<<<<< HEAD:Game.h
       int m_scorePanelWidth;
+=======
+>>>>>>> develop:game/Game.h
       GLuint m_splashTexture;
 
       // Items in the game
@@ -60,6 +62,7 @@ class Game {
       static void run();
       static void idle();
       static void timer(int id);
+      static bool c_running;
       void update();
 
       void RenderString(float x, float y, void *font, const char* string);

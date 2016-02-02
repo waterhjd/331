@@ -6,7 +6,7 @@ class ImageLoader {
    private:
 
    public:
-    static GLuint LoadTexture( const char * filename );
+    static GLuint LoadTexture( const char * filename, int &w, int &h );
     static void drawBox(GLfloat size, GLenum type, int x, int y, int xangle, int yangle);
     static void RenderString(float x, float y, void *font, const char* string);
     static void arc(GLfloat x, GLfloat y, GLfloat r, int n, int s, int e);

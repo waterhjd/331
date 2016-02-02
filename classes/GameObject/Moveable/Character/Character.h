@@ -1,12 +1,12 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
 
-#include "GameObject.h"
+#include "../Moveable.h"
 #include <iostream>
 
 using namespace std;
 
-class Character: public GameObject {
+class Character: public Moveable {
    private:
       int m_position_x;
 			int m_position_y;

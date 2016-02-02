@@ -7,13 +7,16 @@
 #include <GL/freeglut.h>
 
 #include "ImageLoader.h"
+<<<<<<< HEAD:ImageLoader.cpp
 #include <netinet/in.h>
+=======
+#include <iostream>
+>>>>>>> develop:classes/ImageLoader/ImageLoader.cpp
 
-
-GLuint ImageLoader::LoadTexture( const char * filename )
+GLuint ImageLoader::LoadTexture( const char * filename, int &w, int &h )
 {
   GLuint texture;
-  int width, height;
+  unsigned int width, height;
   unsigned char * data;
   unsigned long i;                    // standard counter.
 
@@ -25,9 +28,15 @@ GLuint ImageLoader::LoadTexture( const char * filename )
      printf("Can't load picture file %s  \n",filename);
      return 0;
   }
+<<<<<<< HEAD:ImageLoader.cpp
    
   width = 1024;
   height = 512;
+=======
+  //unsigned char header[54];
+  width = 1024;//*(int*)&header;
+  height = 768;
+>>>>>>> develop:classes/ImageLoader/ImageLoader.cpp
 
    int fileSize;
    fseek(file, 2, SEEK_SET);
@@ -46,7 +55,7 @@ GLuint ImageLoader::LoadTexture( const char * filename )
 		printf("Error reading width from %s.\n", filename);
 		return 0;
     }
-    //printf("Width of %s: %lu\n", filename, width); 
+    printf("Width of %s: %lu\n", filename, width); 
     
     // read the height 
     if ((i = fread(&height, 4, 1, file)) != 1) 
@@ -54,36 +63,39 @@ GLuint ImageLoader::LoadTexture( const char * filename )
 		printf("Error reading height from %s.\n", filename); 
 		return 0;
     }
-    //printf("Height of %s: %lu\n", filename, height);
+    printf("Height of %s: %lu\n", filename, height);
 
   fseek(file, 3*13, SEEK_SET); // Debug Dr. J Seek past the header. How big is the 
                                // header of a bmp file?
   data = (unsigned char *)malloc( width * height * 3 );
   //int size = fseek(file,);
+
   fread( data, width * height * 3, 1, file );
   fclose( file );
 
+  w = width;
+  h = height;
+
+  //.BMP files have colours in BGR order.
   for(int i = 0; i < width * height ; ++i)
   {
      int index = i*3;
-     unsigned char B,R;
+     unsigned char B,R, G;
      B = data[index];
+     G = data[index+1];
      R = data[index+2];
 
      data[index] = R;
+     data[index+1] = G;
      data[index+2] = B;
   }
-
-
    glGenTextures( 1, &texture );
    glBindTexture( GL_TEXTURE_2D, texture );
-   glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,GL_MODULATE );
-   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST );
 
-
-   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
-   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_REPEAT );
-   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,GL_REPEAT );
+   glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR );
+   glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
+   glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_REPEAT );
+   glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,GL_REPEAT );
    gluBuild2DMipmaps( GL_TEXTURE_2D, 3, width, height,GL_RGB, GL_UNSIGNED_BYTE, data );
    free( data );
 
@@ -129,6 +141,7 @@ void ImageLoader::drawBox(GLfloat size, GLenum type, int x, int y, int xangle, i
     glBegin(GL_POLYGON);
     glNormal3fv(&n[i][0]);
     glTexCoord2i(0, 0);glVertex3fv(&v[faces[i][0]][0]);
+    glTexCoord2i(0, 1);glVertex3fv(&v[faces[i][1]][0]);
     glTexCoord2i(0, 1);glVertex3fv(&v[faces[i][1]][0]);
     glTexCoord2i(1, 1);glVertex3fv(&v[faces[i][2]][0]);
     glTexCoord2i(1, 0);glVertex3fv(&v[faces[i][3]][0]);
