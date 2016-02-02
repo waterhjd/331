@@ -1,9 +1,10 @@
 #ifndef BUNNY_H_
 #define BUNNY_H_
 
-#include "../bunny.h"
+#include "../Moveable.h"
+#include "../Character/Character.h"
 
-class bunny : public bunny {
+class Bunny : public Moveable {
    private:
    int m_position_x;
    int m_position_y;
@@ -23,7 +24,7 @@ class bunny : public bunny {
    int getY() {return m_position_y;};
    
    // Get bunny size
-   int getWidth() {return m_width};
+   int getWidth() {return m_width;};
    
    void display();
    void update();
@@ -32,9 +33,9 @@ class bunny : public bunny {
    // Bunny hits character send character postion to check
    bool collide(Character c);
    //  Player Character projectile send projectile to check
-   bool zapped(Lightning L);
+   //bool zapped(Lightning L);
    
-   bunny();
+   Bunny();
    
 };
 
