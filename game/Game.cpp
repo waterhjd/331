@@ -8,7 +8,7 @@
 #include <GL/freeglut.h>
 
 #include "../classes/GameObject/Wall/Wall.h"
-#include "../classes/GameObject/Character/Character.h"
+#include "../classes/GameObject/Moveable/Character/Character.h"
 #include "../classes/GameObject/GameObject.h"
 
 #include "../classes/ImageLoader/ImageLoader.h"

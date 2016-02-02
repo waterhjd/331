@@ -1,7 +1,7 @@
 CC = g++
 LDLIBS = -lglut -lGL -lGLU -lX11 -lm
 OBJ = game/Game.cpp \
-      classes/GameObject/Character/Character.cpp \
+      classes/GameObject/Moveable/Character/Character.cpp \
       classes/ImageLoader/ImageLoader.cpp \
       classes/GameObject/Wall/Wall.cpp
 

@@ -5,7 +5,7 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include "../classes/GameObject/Character/Character.h"
+#include "../classes/GameObject/Moveable/Character/Character.h"
 
 class GameObject;
 class Character;

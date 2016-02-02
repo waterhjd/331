@@ -2,7 +2,7 @@
 #define WALL_H_
 
 #include "../GameObject.h"
-#include "../Character/Character.h"
+#include "../Moveable/Character/Character.h"
 
 class Wall: public GameObject {
    protected:
