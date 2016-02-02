@@ -7,9 +7,8 @@
 #include <GL/freeglut.h>
 
 #include "ImageLoader.h"
-#include <iostream>
 
-GLuint ImageLoader::LoadTexture( const char * filename )
+GLuint ImageLoader::LoadTexture( const char * filename, int &w, int &h )
 {
   GLuint texture;
   unsigned int width, height;
@@ -62,6 +61,10 @@ GLuint ImageLoader::LoadTexture( const char * filename )
 
   fread( data, width * height * 3, 1, file );
   fclose( file );
+
+  w = width;
+  h = height;
+
   //.BMP files have colours in BGR order.
   for(int i = 0; i < width * height ; ++i)
   {
@@ -77,9 +80,7 @@ GLuint ImageLoader::LoadTexture( const char * filename )
   }
    glGenTextures( 1, &texture );
    glBindTexture( GL_TEXTURE_2D, texture );
-   glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-   glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR );
    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_REPEAT );

@@ -7,13 +7,14 @@
 #include <time.h>
 #include <GL/freeglut.h>
 
-#include "Wall.h"
-#include "Character.h"
-#include "GameObject.h"
+#include "../classes/GameObject/Prop/Wall/Wall.h"
+#include "../classes/GameObject/Moveable/Character/Character.h"
+#include "../classes/GameObject/GameObject.h"
 
-#include "ImageLoader.h"
+#include "../classes/ImageLoader/ImageLoader.h"
 
 bool Game::c_running = false;
+int splash_w, splash_h;
 
 // We do not use this function yet, but you might want it.
 GLfloat Game::frand() {
@@ -62,12 +63,13 @@ void Game::key(unsigned char key, int x, int y)
     switch (key)
     {
         case 'p' :
-                  Game::c_running = false;
+            Game::c_running = false;
+            break;
         case 'h' :
-						myCharacter->left();
+				myCharacter->left();
             break;
         case 'l':
-						myCharacter->right();
+				myCharacter->right();
             break;
         case 'k':
             myCharacter->jump();
@@ -91,27 +93,26 @@ void Game::RenderString(float x, float y, void *font, const char* string)
 void Game::splash() {
    glEnable(GL_TEXTURE_2D);
    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,GL_REPLACE);
+   //glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
    glBindTexture (GL_TEXTURE_2D, m_splashTexture);
    ImageLoader::rectangle(0,0, m_width, m_height);
 
       // Other parts of the program have been doing speical things with
    // lights and textures. We want a flat rectangle so turn them all off.
    glDisable(GL_TEXTURE_2D); // Disable any textures. We want color!
-   glDisable (GL_LIGHTING);  // Also turn off any lights
 
    glLoadIdentity();//load identity matrix
    glEnable(GL_COLOR_MATERIAL); // Needed so glColor3f controls the color
 
    char string[1200];
-   sprintf(string, "Game Paused. Press space to continue.\n");
-   glColor3f(0.0, 0.0, 0.0); // Black Text
-   ImageLoader::RenderString(30, m_height-60, GLUT_BITMAP_TIMES_ROMAN_24, string);
+   sprintf(string, "Paused\n");
+   glColor3f(1.0, 0.0, 0.0); // Red Text
+   ImageLoader::RenderString((m_width/2)-40, m_height/2, GLUT_BITMAP_TIMES_ROMAN_24, string);
    glDisable(GL_COLOR_MATERIAL);
  
 }
 void Game::update()
 {
-
    m_character->update();
    for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->collide(m_character);
@@ -122,22 +123,21 @@ void Game::update()
    glClearColor(1.0, 1.0, 1.0, 0.0);
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     // clear the screen
 //clear the screen
-/*
     // Display the current score
-    char string[40];
-    sprintf(string, "Score:\n%d", m_score);
-    RenderString(0, m_height-20, GLUT_BITMAP_TIMES_ROMAN_24, string);
-*/
+   char string[40];
+   sprintf(string, "Score:%d\n", m_score);
+   sprintf(string, "Press P to Pause\n");
+   RenderString(0, m_height-20, GLUT_BITMAP_TIMES_ROMAN_24, string);
 
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
 
 
-    m_character->display();
-    for(int i=0; i<m_gameObjects; i++)
+   m_character->display();
+   for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->display();
    
-  glFlush();
+   glFlush();
 
 
    if (!isRunning()) return splash();
@@ -190,7 +190,6 @@ void Game::init() {
 
     gluOrtho2D(0, m_width, 0, m_height);
 
-
    //In event-driven programming, like you have in interactive OpenGL 
    //applications, the main application loop generally does three things:
    //  1. check the current event queues, and process any events (e.g., 
@@ -205,7 +204,7 @@ void Game::init() {
     glutDisplayFunc(Game::run);  // Display frames
     //glutIdleFunc(Game::run);    // Wait time between frames.
 
-    m_splashTexture = ImageLoader::LoadTexture("./images/cvuSplash.bmp");
+    m_splashTexture = ImageLoader::LoadTexture("./images/cvuSplash.bmp", splash_w, splash_h);
 
     glutMainLoop(); // glutMainLoop enters the GLUT event processing loop. 
                     //This routine should be called at most once in a GLUT program. 

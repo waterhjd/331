@@ -1,0 +1,27 @@
+#ifndef MOVEABLE_H_
+#define MOVEABLE_H_
+
+#include "../GameObject.h"
+
+class Moveable : public GameObject {
+   public:
+      int getX() {return m_position_x;};
+      int getY() {return m_position_y;};
+      int getR() {return m_width;};
+
+
+   private:
+
+   protected:
+      int m_position_x;
+      int m_position_y;
+      int m_speed_x;
+      int m_speed_y;
+      int m_speed;
+      int m_width;
+      int m_height;
+
+
+};
+
+#endif /* MOVEABLE_H_ */

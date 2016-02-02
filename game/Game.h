@@ -5,7 +5,7 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include "Character.h"
+#include "../classes/GameObject/Moveable/Character/Character.h"
 
 class GameObject;
 class Character;
@@ -42,6 +42,7 @@ class Game {
       int m_width;
       int m_height;
       int m_margine;
+      int m_scorePanelWidth;
       GLuint m_splashTexture;
 
       // Items in the game
