@@ -1,10 +1,10 @@
 #ifndef WALL_H_
 #define WALL_H_
 
-#include "../GameObject.h"
-#include "../Moveable/Character/Character.h"
+#include "../Prop.h"
+#include "../../Moveable/Character/Character.h"
 
-class Wall: public GameObject {
+class Wall: public Prop {
    protected:
       int m_x1,m_y1, m_x2, m_y2;
       bool m_minwall;
