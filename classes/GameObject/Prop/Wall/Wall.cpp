@@ -34,10 +34,12 @@ bool Wall::collide (Character *c)
    {
       if(m_minwall) //this is the floor
       {
-         if (c->getY() < m_y1+5)
+         if (c->getY()<= m_y1+c->getR())
          {
 						 c->stopJump();
 						 c->stopY();
+                   c->setY(m_y1+5);
+                   return true;
          }
       }
       else 
@@ -45,6 +47,7 @@ bool Wall::collide (Character *c)
          if (c->getY() + c->getR() > m_y1)
          {
              c->stopY();
+             return true;
          }
       }
    }

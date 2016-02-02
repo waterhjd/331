@@ -9,6 +9,7 @@
 
 #include "../classes/GameObject/Prop/Wall/Wall.h"
 #include "../classes/GameObject/Moveable/Character/Character.h"
+#include "../classes/GameObject/Moveable/Bunny/Bunny.h"
 #include "../classes/GameObject/GameObject.h"
 
 #include "../classes/ImageLoader/ImageLoader.h"
@@ -67,6 +68,9 @@ void Game::key(unsigned char key, int x, int y)
             break;
         case 'h' :
 				myCharacter->left();
+            break;
+        case 'j' :
+            myCharacter->stop();
             break;
         case 'l':
 				myCharacter->right();
@@ -160,6 +164,9 @@ void Game::init() {
 		m_myGameObjects[m_gameObjects] = new Character();
 		m_gameObjects ++ ;
     m_character = dynamic_cast<Character*>(m_myGameObjects[0]);
+    
+    m_myGameObjects[m_gameObjects] = new Bunny();
+    m_gameObjects++;
     // m_myGameObjects[m_gameObjects] = new Paddle(m_width/2,5); // Paddle
     // m_gameObjects++;
     // m_myGameObjects[m_gameObjects] = new Wall(m_scorePanelWidth,0,m_scorePanelWidth,m_height, true ); // Left Wall

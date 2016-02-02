@@ -13,6 +13,7 @@ class Character: public Moveable {
     // void bounceX() {m_speed_x *= -1;};
     // void bounceY() {m_speed_y *= -1;};
 		void stopY() {m_speed_y = 0;};
+      void stop() {m_speed_x = 0;};
 		void jump();
 		void right();
 		void left();
