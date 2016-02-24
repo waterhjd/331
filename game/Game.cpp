@@ -125,19 +125,21 @@ void Game::update()
       m_myGameObjects[i]->update();
 
    glClearColor(1.0, 1.0, 1.0, 0.0);
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     // clear the screen
-//clear the screen
-    // Display the current score
+	 // clear the screen
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     
+   // Display the current score
    char string[40];
    sprintf(string, "Score:%d\n", m_score);
    sprintf(string, "Press P to Pause\n");
    RenderString(0, m_height-20, GLUT_BITMAP_TIMES_ROMAN_24, string);
 
+
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
 
 
-   m_character->display();
+   // m_character->display();
+	 glTranslatef(- m_character->getX() + (m_width / 2), 0.0, 0.0);
    for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->display();
    
