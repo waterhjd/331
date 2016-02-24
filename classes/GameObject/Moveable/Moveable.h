@@ -32,6 +32,10 @@ class Moveable : public GameObject {
 
 		virtual bool collide(Character *c);
 
+		// set default values in case they arent set 
+		// in inheriting class
+		Moveable();
+
   private:
 
   protected:

@@ -68,3 +68,13 @@ void Moveable::set_top(int y) {
 bool Moveable::collide(Character *c) { 
 	return false;
 }
+
+Moveable::Moveable() {
+  m_speed_x = 0;
+  m_speed_y = -1;
+  m_speed = 1;
+  m_position_x = 200;
+  m_position_y = 250;
+  m_width = 20;
+	m_height = 20;
+}

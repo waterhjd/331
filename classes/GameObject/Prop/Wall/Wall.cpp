@@ -58,7 +58,6 @@ bool Wall::collide (Character *c)
 				&& (c->get_left() < m_x2)
 			 ) {
 
-			std::cout << "ceiling\n";
 			c->stopY();
 			c->set_top(m_y1 - 1);
 			return true;
