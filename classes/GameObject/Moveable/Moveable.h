@@ -12,7 +12,8 @@ class Moveable : public GameObject {
       int get_width() {return m_width;};
 			void set_left(int v) {m_position_x = v;}
 			void set_right(int v) {m_position_x = v - m_width;}
-      void setY(int y) {m_position_y=y;};
+      void set_bottom(int y) {m_position_y = y;};
+      void set_top(int y) {m_position_y = y - m_height;};
       virtual bool collide (Character *c) { return false; }
 
 

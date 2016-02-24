@@ -38,7 +38,7 @@ bool Wall::collide (Character *c)
          {
 						 c->stopJump();
 						 c->stopY();
-                   c->setY(m_y1+5);
+                   c->set_bottom(m_y1+5);
                    return true;
          }
       }
