@@ -28,6 +28,9 @@ void Character::update()
 			m_speed_y -= Gravity;
 			m_position_y += m_speed_y * m_speed;
 		}
+      m_position_x += m_speed_x * m_speed;
+
+
 		// if (m_speed_y != 0)
 		// 	m_speed_y -= Gravity;
 		// m_position_y += m_speed_y * m_speed ;
@@ -47,12 +50,14 @@ void Character::jump()
 
 void Character::right()
 {
-	m_position_x += 3;	
+	m_position_x += 1;	
+   m_speed_x = 1;
 }
 
 void Character::left()
 {
-	m_position_x -= 3;	
+	m_position_x -= 1;	
+   m_speed_x = -1;
 }
 
 Character::Character()
@@ -63,4 +68,5 @@ Character::Character()
    m_position_x = 200;
    m_position_y = 250;
    m_width = 20;
+   m_jumping = true;
 }

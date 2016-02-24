@@ -29,7 +29,7 @@ class Game {
         Game() {
            m_margine = 0;
            m_width = 600;
-           m_height = 440;
+           m_height = 600;
         }; // Default Constructor (the {} brackets) are needed here, even if it is empty.
         Game(Game const&);           // Don't Implement
         void operator=(Game const&); // Don't implement
