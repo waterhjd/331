@@ -228,8 +228,3 @@ void Game::init() {
 }
 
 
-int main(int argc, char **argv) {
-    glutInit(&argc, argv);
-    Game::getInstance().init();
-
-}
