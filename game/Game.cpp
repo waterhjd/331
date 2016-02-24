@@ -138,8 +138,11 @@ void Game::update()
    glLoadIdentity();
 
 
+	 if (m_x_distance < m_character->getX() - (m_width / 2)) {
+		 m_x_distance = m_character->getX() - (m_width / 2);
+	 }
    // m_character->display();
-	 glTranslatef(- m_character->getX() + (m_width / 2), 0.0, 0.0);
+	 glTranslatef(- m_x_distance, 0.0, 0.0);
    for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->display();
    
@@ -159,6 +162,7 @@ void Game::setRun(bool b) {
 
 
 void Game::init() {
+		m_x_distance = 0;
    
     // Set up all the objects in the game that m_character can collide with in an array
     // called m_myGameObjects. m_gameObjects tells how many are defined.
