@@ -175,7 +175,12 @@ void Game::init() {
     
     m_myGameObjects[m_gameObjects] = new Bunny();
     m_gameObjects++;
-    m_myGameObjects[m_gameObjects] = new Wall(0,m_height/3,m_width,m_height/3, true ); // Floor
+
+		// floor
+    m_myGameObjects[m_gameObjects] = new Wall(0,m_height/3,m_width,m_height/3);
+    m_gameObjects++;
+
+    m_myGameObjects[m_gameObjects] = new Wall(200,m_height/2,300,m_height/2);
     m_gameObjects++;
 
     // Set the seed for the random variable generator just in case we need it.

@@ -34,5 +34,6 @@ Character::Character() {
   m_position_x = 200;
   m_position_y = 250;
   m_width = 20;
+	m_height = 20;
   m_jumping = true;
 }
