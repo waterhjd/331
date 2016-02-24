@@ -133,18 +133,10 @@ void Game::update()
    sprintf(string, "Press P to Pause\n");
    RenderString(0, m_height-20, GLUT_BITMAP_TIMES_ROMAN_24, string);
 
-
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
 
-
 	 m_scroller->update();
-   // m_left_border->collide(m_character);
-	 // if (m_x_distance < m_character->get_left() - (m_width / 2)) {
-		//  m_x_distance = m_character->get_left() - (m_width / 2);
-	 // }
-   // m_left_border->update(m_x_distance);
-	 // glTranslatef(- m_x_distance, 0.0, 0.0);
 
    for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->display();
@@ -166,9 +158,6 @@ void Game::setRun(bool b) {
 
 void Game::init() {
 
-		// m_x_distance = 0;
-    // m_left_border = new Border();
-   
     // Set up all the objects in the game that m_character can collide with in an array
     // called m_myGameObjects. m_gameObjects tells how many are defined.
     m_gameObjects = 0 ;
