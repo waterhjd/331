@@ -17,7 +17,7 @@ bool Border::collide (Character *c)
 	if(m_x1 == m_x2) {
 		if (c->get_left() < m_x1) {
 			c->stop();
-			c->set_left(m_x1+1);
+			c->set_left(m_x1);
 			return true;
 		}
 	}

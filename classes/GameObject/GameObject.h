@@ -65,6 +65,7 @@ GLfloat r2 = r/2.0;
     virtual void display () = 0;
     virtual void update () = 0;
     virtual bool collide (Character *c) { return false; }
+
 };
 
 #endif /* GAME_OBJEC_H_ */

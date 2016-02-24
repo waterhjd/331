@@ -10,12 +10,12 @@ class Moveable : public GameObject {
       int get_top() {return m_position_y + m_height;};
       int get_bottom() {return m_position_y;};
       int get_width() {return m_width;};
+      int get_speed_down() {return - m_speed_y;};
 			void set_left(int v) {m_position_x = v;}
-			void set_right(int v) {m_position_x = v - m_width;}
+			void set_right(int v) {m_position_x = v - m_width;};
       void set_bottom(int y) {m_position_y = y;};
       void set_top(int y) {m_position_y = y - m_height;};
-      virtual bool collide (Character *c) { return false; }
-
+      virtual bool collide (Character *c) { return false; };
 
    private:
 
