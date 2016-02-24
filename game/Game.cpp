@@ -175,14 +175,6 @@ void Game::init() {
     
     m_myGameObjects[m_gameObjects] = new Bunny();
     m_gameObjects++;
-    // m_myGameObjects[m_gameObjects] = new Paddle(m_width/2,5); // Paddle
-    // m_gameObjects++;
-    // m_myGameObjects[m_gameObjects] = new Wall(m_scorePanelWidth,0,m_scorePanelWidth,m_height, true ); // Left Wall
-    // m_gameObjects++;
-    // m_myGameObjects[m_gameObjects] = new Wall(m_width,0,m_width,m_height, false ); // Right Wall
-    // m_gameObjects++;
-    // m_myGameObjects[m_gameObjects] = new Wall(0,m_height,m_width,m_height, false ); // Top Wall
-    // m_gameObjects++;
     m_myGameObjects[m_gameObjects] = new Wall(0,m_height/3,m_width,m_height/3, true ); // Floor
     m_gameObjects++;
 

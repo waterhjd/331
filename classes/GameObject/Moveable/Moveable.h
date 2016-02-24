@@ -7,7 +7,7 @@ class Moveable : public GameObject {
    public:
       int getX() {return m_position_x;};
       int getY() {return m_position_y;};
-      int getR() {return m_width;};
+      int get_width() {return m_width;};
 			void set_left(int v) {m_position_x = v;}
 			void set_right(int v) {m_position_x = v - m_width;}
       void setY(int y) {m_position_y=y;};
