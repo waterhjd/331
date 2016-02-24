@@ -139,8 +139,8 @@ void Game::update()
    glLoadIdentity();
 
 
-	 if (m_x_distance < m_character->get_left_bound() - (m_width / 2)) {
-		 m_x_distance = m_character->get_left_bound() - (m_width / 2);
+	 if (m_x_distance < m_character->get_left() - (m_width / 2)) {
+		 m_x_distance = m_character->get_left() - (m_width / 2);
 	 }
    m_left_border->update(m_x_distance);
 	 glTranslatef(- m_x_distance, 0.0, 0.0);
