@@ -15,7 +15,7 @@ bool Border::collide (Character *c)
 {
 	// Vertical Border
 	if(m_x1 == m_x2) {
-		if (c->getX() < m_x1) {
+		if (c->get_left_bound() < m_x1) {
 			c->stop();
 			c->set_left(m_x1+1);
 			return true;

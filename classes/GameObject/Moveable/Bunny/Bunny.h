@@ -20,12 +20,6 @@ class Bunny : public Moveable {
    int m_health;
    public:
 /*   
-   // Get Bunny Position
-   int getX() {return m_position_x;};
-   
-   //Get Bunny Vertical position
-   int getY() {return m_position_y;};
-   
    // Get bunny size
    int getWidth() {return m_width;};
 */   

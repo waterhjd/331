@@ -13,7 +13,7 @@ bool Wall::collide (Character *c)
    // {
    //    if(m_minwall)
    //    {
-   //       if (c->getX() < m_x1) 
+   //       if (c->get_left_bound() < m_x1) 
    //       {
    //           c->bounceX();
    //           m_ouch = 5;
@@ -21,7 +21,7 @@ bool Wall::collide (Character *c)
    //    }
    //    else
    //    { 
-   //       if (c->getX() + c->get_width() > m_x1)
+   //       if (c->get_left_bound() + c->get_width() > m_x1)
    //       {
    //           c->bounceX();
    //           m_ouch = 5;
@@ -34,7 +34,7 @@ bool Wall::collide (Character *c)
    {
       if(m_minwall) //this is the floor
       {
-         if (c->getY()<= m_y1+c->get_width())
+         if (c->get_bottom_bound()<= m_y1+c->get_width())
          {
 						 c->stopJump();
 						 c->stopY();
@@ -44,7 +44,7 @@ bool Wall::collide (Character *c)
       }
       else 
       {
-         if (c->getY() + c->get_width() > m_y1)
+         if (c->get_bottom_bound() + c->get_width() > m_y1)
          {
              c->stopY();
              return true;
