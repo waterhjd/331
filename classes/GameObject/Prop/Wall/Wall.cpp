@@ -34,7 +34,9 @@ bool Wall::collide (Character *c)
    {
       if(m_minwall) //this is the floor
       {
-         if (c->get_bottom() - c->get_speed_down() < m_y1 )
+         if ((c->get_bottom() - c->get_speed_down() < m_y1)
+						 && (c->get_right() > m_x1)
+						 && (c->get_left() < m_x2))
          {
 						 c->stopJump();
 						 c->stopY();

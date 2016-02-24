@@ -20,11 +20,11 @@ void Character::update()
 		// 	m_speed_y = 0;
 		// 	m_position_y += m_speed_y * m_speed;
 		// }
-		if (m_jumping) {
+		// if (m_jumping) {
 			m_speed_y -= Gravity;
 			m_position_y += m_speed_y * m_speed;
-		}
-      m_position_x += m_speed_x * m_speed;
+		// }
+    m_position_x += m_speed_x * m_speed;
 
 
 		// if (m_speed_y != 0)
