@@ -6,6 +6,7 @@
 #define GAME_H_
 
 #include "../classes/GameObject/Moveable/Character/Character.h"
+#include "../classes/GameObject/Prop/Border/Border.h"
 
 class GameObject;
 class Character;
@@ -49,6 +50,7 @@ class Game {
       // Items in the game
       Character m_myCharacter;
 			Character *m_character;
+			Border *m_left_border;
       int m_gameObjects;
       GameObject *m_myGameObjects[MAX_OBJECTS];
       int m_score;

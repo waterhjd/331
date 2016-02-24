@@ -118,6 +118,7 @@ void Game::splash() {
 void Game::update()
 {
    m_character->update();
+   m_left_border->collide(m_character);
    for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->collide(m_character);
 
@@ -141,7 +142,7 @@ void Game::update()
 	 if (m_x_distance < m_character->getX() - (m_width / 2)) {
 		 m_x_distance = m_character->getX() - (m_width / 2);
 	 }
-   // m_character->display();
+   m_left_border->update(m_x_distance);
 	 glTranslatef(- m_x_distance, 0.0, 0.0);
    for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->display();
@@ -166,6 +167,7 @@ void Game::init() {
    
     // Set up all the objects in the game that m_character can collide with in an array
     // called m_myGameObjects. m_gameObjects tells how many are defined.
+    m_left_border = new Border();
     m_gameObjects = 0 ;
 		m_myGameObjects[m_gameObjects] = new Character();
 		m_gameObjects ++ ;
