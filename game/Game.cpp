@@ -118,7 +118,6 @@ void Game::splash() {
 void Game::update()
 {
    m_character->update();
-   m_left_border->collide(m_character);
    for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->collide(m_character);
 
@@ -139,11 +138,14 @@ void Game::update()
    glLoadIdentity();
 
 
-	 if (m_x_distance < m_character->get_left() - (m_width / 2)) {
-		 m_x_distance = m_character->get_left() - (m_width / 2);
-	 }
-   m_left_border->update(m_x_distance);
-	 glTranslatef(- m_x_distance, 0.0, 0.0);
+	 m_scroller->update();
+   // m_left_border->collide(m_character);
+	 // if (m_x_distance < m_character->get_left() - (m_width / 2)) {
+		//  m_x_distance = m_character->get_left() - (m_width / 2);
+	 // }
+   // m_left_border->update(m_x_distance);
+	 // glTranslatef(- m_x_distance, 0.0, 0.0);
+
    for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->display();
    
@@ -163,15 +165,18 @@ void Game::setRun(bool b) {
 
 
 void Game::init() {
-		m_x_distance = 0;
+
+		// m_x_distance = 0;
+    // m_left_border = new Border();
    
     // Set up all the objects in the game that m_character can collide with in an array
     // called m_myGameObjects. m_gameObjects tells how many are defined.
-    m_left_border = new Border();
     m_gameObjects = 0 ;
 		m_myGameObjects[m_gameObjects] = new Character();
 		m_gameObjects ++ ;
     m_character = dynamic_cast<Character*>(m_myGameObjects[0]);
+
+		m_scroller = new Scroller(m_character, m_width);
     
     m_myGameObjects[m_gameObjects] = new Bunny();
     m_gameObjects++;

@@ -32,3 +32,11 @@ Border::Border()
   m_y1=0;
   m_y2=0;
 }
+
+Border::Border(int x1, int x2, int y1, int y2)
+{
+  m_x1 = x1;
+  m_x2 = x2;
+  m_y1 = y1;
+  m_y2 = y2;
+}

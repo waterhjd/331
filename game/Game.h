@@ -6,7 +6,7 @@
 #define GAME_H_
 
 #include "../classes/GameObject/Moveable/Character/Character.h"
-#include "../classes/GameObject/Prop/Border/Border.h"
+#include "../classes/Scroller/Scroller.h"
 
 class GameObject;
 class Character;
@@ -50,7 +50,7 @@ class Game {
       // Items in the game
       Character m_myCharacter;
 			Character *m_character;
-			Border *m_left_border;
+			Scroller *m_scroller;
       int m_gameObjects;
       GameObject *m_myGameObjects[MAX_OBJECTS];
       int m_score;

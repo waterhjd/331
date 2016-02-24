@@ -7,6 +7,7 @@ OBJ = main.cpp \
       classes/GameObject/Moveable/Bunny/Bunny.cpp \
       classes/GameObject/Prop/Wall/Wall.cpp \
 			classes/GameObject/Prop/Border/Border.cpp \
+			classes/Scroller/Scroller.cpp \
       classes/ImageLoader/ImageLoader.cpp
 
 All: $(OBJ)
