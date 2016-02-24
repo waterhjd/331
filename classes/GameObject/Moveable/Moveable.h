@@ -4,41 +4,44 @@
 #include "../GameObject.h"
 
 class Moveable : public GameObject {
-   public:
-			// get positions 
-      int get_left();
-      int get_right();
-      int get_top();
-      int get_bottom();
+  public:
+		virtual void update();
+		void display();
 
-			// get character size
-      int get_width();
-      int get_height();
-			
-			// get speeds
-      int get_speed_down();
-      int get_speed_up();
-      int get_speed_left();
-      int get_speed_right();
+		// get positions 
+		int get_left();
+		int get_right();
+		int get_top();
+		int get_bottom();
 
-			// set positions
-			void set_left(int v);
-			void set_right(int v);
-      void set_bottom(int y);
-      void set_top(int y);
+		// get character size
+		int get_width();
+		int get_height();
 
-      virtual bool collide(Character *c);
+		// get speeds
+		int get_speed_down();
+		int get_speed_up();
+		int get_speed_left();
+		int get_speed_right();
 
-   private:
+		// set positions
+		void set_left(int v);
+		void set_right(int v);
+		void set_bottom(int y);
+		void set_top(int y);
 
-   protected:
-      int m_position_x;
-      int m_position_y;
-      int m_speed_x;
-      int m_speed_y;
-      int m_speed;
-      int m_width;
-      int m_height;
+		virtual bool collide(Character *c);
+
+  private:
+
+  protected:
+		int m_position_x;
+		int m_position_y;
+		int m_speed_x;
+		int m_speed_y;
+		int m_speed;
+		int m_width;
+		int m_height;
 
 };
 

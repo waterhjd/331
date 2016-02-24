@@ -19,7 +19,7 @@ class Character: public Moveable {
 		void left();
 		void stopJump() {m_jumping = false;};
     void display();
-    void update();
+    // void update();
     bool collide(Character c) {return false;};
     Character();
 };

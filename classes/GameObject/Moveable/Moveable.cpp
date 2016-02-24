@@ -1,5 +1,14 @@
 #include "Moveable.h"
 
+void Moveable::update() {
+	m_speed_y -= Gravity;
+	m_position_y += m_speed_y * m_speed;
+	m_position_x += m_speed_x * m_speed;
+}
+
+void Moveable::display() {
+}
+
 int Moveable::get_left() {
 	return m_position_x;
 }
