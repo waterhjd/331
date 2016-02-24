@@ -2,6 +2,7 @@ CC = g++
 LDLIBS = -lglut -lGL -lGLU -lX11 -lm
 OBJ = main.cpp \
 			game/Game.cpp \
+      classes/GameObject/Moveable/Moveable.cpp \
       classes/GameObject/Moveable/Character/Character.cpp \
       classes/GameObject/Moveable/Bunny/Bunny.cpp \
       classes/GameObject/Prop/Wall/Wall.cpp \

@@ -5,17 +5,29 @@
 
 class Moveable : public GameObject {
    public:
-      int get_left() {return m_position_x;};
-      int get_right() {return m_position_x + m_width;};
-      int get_top() {return m_position_y + m_height;};
-      int get_bottom() {return m_position_y;};
-      int get_width() {return m_width;};
-      int get_speed_down() {return - m_speed_y;};
-			void set_left(int v) {m_position_x = v;}
-			void set_right(int v) {m_position_x = v - m_width;};
-      void set_bottom(int y) {m_position_y = y;};
-      void set_top(int y) {m_position_y = y - m_height;};
-      virtual bool collide (Character *c) { return false; };
+			// get positions 
+      int get_left();
+      int get_right();
+      int get_top();
+      int get_bottom();
+
+			// get character size
+      int get_width();
+      int get_height();
+			
+			// get speeds
+      int get_speed_down();
+      int get_speed_up();
+      int get_speed_left();
+      int get_speed_right();
+
+			// set positions
+			void set_left(int v);
+			void set_right(int v);
+      void set_bottom(int y);
+      void set_top(int y);
+
+      virtual bool collide(Character *c);
 
    private:
 
@@ -27,7 +39,6 @@ class Moveable : public GameObject {
       int m_speed;
       int m_width;
       int m_height;
-
 
 };
 
