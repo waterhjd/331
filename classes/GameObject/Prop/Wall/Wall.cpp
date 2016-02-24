@@ -9,32 +9,32 @@ void Wall::display ()
 bool Wall::collide (Character *c)
 {
    // Vertical Wall
-   // if(m_x1 == m_x2)
-   // {
-   //    if(m_minwall)
-   //    {
-   //       if (c->get_left_bound() < m_x1) 
-   //       {
-   //           c->bounceX();
-   //           m_ouch = 5;
-   //       }
-   //    }
-   //    else
-   //    { 
-   //       if (c->get_left_bound() + c->get_width() > m_x1)
-   //       {
-   //           c->bounceX();
-   //           m_ouch = 5;
-   //       }
-   //    }
-   // }
+   if(m_x1 == m_x2)
+   {
+      if(m_minwall)
+      {
+         if (c->get_left_bound() < m_x1) 
+         {
+             // c->bounceX();
+             // m_ouch = 5;
+         }
+      }
+      else
+      { 
+         if (c->get_right_bound() > m_x1)
+         {
+             // c->bounceX();
+             // m_ouch = 5;
+         }
+      }
+   }
 
    // Horizontal Wall
    if(m_y1 == m_y2)
    {
       if(m_minwall) //this is the floor
       {
-         if (c->get_bottom_bound()<= m_y1+c->get_width())
+         if (c->get_bottom_bound() < m_y1 )
          {
 						 c->stopJump();
 						 c->stopY();
@@ -44,7 +44,7 @@ bool Wall::collide (Character *c)
       }
       else 
       {
-         if (c->get_bottom_bound() + c->get_width() > m_y1)
+         if (c->get_top_bound() > m_y1)
          {
              c->stopY();
              return true;

@@ -6,6 +6,8 @@
 class Moveable : public GameObject {
    public:
       int get_left_bound() {return m_position_x;};
+      int get_right_bound() {return m_position_x + m_width;};
+      int get_top_bound() {return m_position_y + m_height;};
       int get_bottom_bound() {return m_position_y;};
       int get_width() {return m_width;};
 			void set_left(int v) {m_position_x = v;}
