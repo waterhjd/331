@@ -18,13 +18,13 @@ void Character::jump() {
 }
 
 void Character::right() {
-	m_position_x += 1;	
-  m_speed_x = 1;
+	m_position_x += 2;	
+  m_speed_x = 2;
 }
 
 void Character::left() {
-	m_position_x -= 1;	
-  m_speed_x = -1;
+	m_position_x -= 2;	
+  m_speed_x = -2;
 }
 
 Character::Character() {
