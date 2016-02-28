@@ -46,6 +46,7 @@ class Game {
       int m_scorePanelWidth;
 			int m_x_distance;
       GLuint m_splashTexture;
+      GLuint m_bgTexture;
 
       // Items in the game
       Character m_myCharacter;
@@ -75,6 +76,7 @@ class Game {
       bool isRunning();
       void setRun(bool b);
       void splash();
+      void bg_disp();
 
       GLfloat frand();
 };
