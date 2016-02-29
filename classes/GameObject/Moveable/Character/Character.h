@@ -9,10 +9,6 @@ using namespace std;
 class Character: public Moveable {
    private:
     bool m_jumping;
-    GLuint m_textures[3];
-    int m_text_height[3];
-    int m_text_width[3];
-    int m_currImg;
    public:
     // void bounceX() {m_speed_x *= -1;};
     // void bounceY() {m_speed_y *= -1;};

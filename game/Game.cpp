@@ -68,19 +68,15 @@ void Game::key(unsigned char key, int x, int y)
             break;
         case 'h' :
 				myCharacter->left();
-            myCharacter->stopJump();
             break;
         case 'j' :
             myCharacter->stop();
-            myCharacter->stopJump();
             break;
         case 'l':
 				myCharacter->right();
-            myCharacter->stopJump();
             break;
         case 'k':
             myCharacter->jump();
-            myCharacter->stopJump();
             break;
     }
    }
@@ -101,8 +97,9 @@ void Game::RenderString(float x, float y, void *font, const char* string)
 void Game::splash() {
    glEnable(GL_TEXTURE_2D);
    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,GL_REPLACE);
+   //glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
    glBindTexture (GL_TEXTURE_2D, m_splashTexture);
-   ImageLoader::rectangle(0,0, splash_w, splash_h);
+   ImageLoader::rectangle(0,0, m_width, m_height);
 
       // Other parts of the program have been doing speical things with
    // lights and textures. We want a flat rectangle so turn them all off.
@@ -118,19 +115,6 @@ void Game::splash() {
    glDisable(GL_COLOR_MATERIAL);
  
 }
-void Game::bg_disp() {
-   glEnable(GL_TEXTURE_2D);
-   glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,GL_REPLACE);
-   glBindTexture (GL_TEXTURE_2D, m_bgTexture);
-   ImageLoader::rectangle(0,0, m_width, m_height);
-
-      // Other parts of the program have been doing speical things with
-   // lights and textures. We want a flat rectangle so turn them all off.
-   glDisable(GL_TEXTURE_2D); // Disable any textures. We want color!
-
-}
-
-
 void Game::update()
 {
    m_character->update();
@@ -143,10 +127,6 @@ void Game::update()
    glClearColor(1.0, 1.0, 1.0, 0.0);
 	 // clear the screen
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     
-   
-   //display background
-    //bg_disp();
-
    // Display the current score
    char string[40];
    sprintf(string, "Score:%d\n", m_score);
@@ -161,8 +141,10 @@ void Game::update()
    for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->display();
    
-   if (!isRunning()) splash();
    glFlush();
+
+
+   if (!isRunning()) return splash();
 
 }
 bool Game::isRunning() {
@@ -198,13 +180,8 @@ void Game::init() {
     // Set the seed for the random variable generator just in case we need it.
     srandom(time(NULL));
 
-cerr<<"before splash load\n";
-    m_splashTexture = ImageLoader::LoadTexture("images/cvuSplash.bmp", splash_w, splash_h);
-cerr<<"after splash load\n";
-   //load bg texture
-    m_bgTexture = ImageLoader::LoadTexture("images/game_bg.bmp", m_width, m_height);
     glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB); // Use double buffering for smoother images
-    glutInitWindowSize(splash_w, splash_h);
+    glutInitWindowSize(m_width, m_height);
     glutInitWindowPosition(0, 0);
     glutCreateWindow("Cockroach vs. Unicorns");
 
@@ -233,6 +210,7 @@ cerr<<"after splash load\n";
     glutDisplayFunc(Game::run);  // Display frames
     //glutIdleFunc(Game::run);    // Wait time between frames.
 
+    m_splashTexture = ImageLoader::LoadTexture("./images/cvuSplash.bmp", splash_w, splash_h);
 
     glutMainLoop(); // glutMainLoop enters the GLUT event processing loop. 
                     //This routine should be called at most once in a GLUT program. 
