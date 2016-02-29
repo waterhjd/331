@@ -5,8 +5,10 @@
 #include <math.h>
 #include <time.h>
 #include <GL/freeglut.h>
-
+#include <iostream>
 #include "ImageLoader.h"
+
+using namespace std;
 
 GLuint ImageLoader::LoadTexture( const char * filename, int &w, int &h )
 {
@@ -94,7 +96,34 @@ GLuint ImageLoader::LoadTexture( const char * filename, int &w, int &h )
 
    w = width;
    h = height;
-  
+   if(pixelval == 3){
+      for(int i = 0; i < width * height ; ++i)
+      {
+         int index = i*3;
+         unsigned char B,R;
+         B = data[index];
+         R = data[index+2];
+
+         data[index] = R;
+         data[index+2] = B;
+      }
+   }else if(pixelval == 4){
+      for(int i = 0; i < width * height ; ++i)
+      {
+         int index = i*4;
+         unsigned char A, G, B, R;
+         A = data[index];
+         B = data[index+1];
+         G = data[index+2];
+         R = data[index+3];
+
+         data[index] = R;
+         data[index+1] = G;
+         data[index+2] = B;
+         data[index+3] = A;
+      }
+   }
+
    glGenTextures( 1, &texture );
    glBindTexture( GL_TEXTURE_2D, texture );
    glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,GL_MODULATE );
@@ -103,10 +132,15 @@ GLuint ImageLoader::LoadTexture( const char * filename, int &w, int &h )
    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_REPEAT );
    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,GL_REPEAT );
+cerr << "Before pixelval\nData:\n" << data << "\n";
    if(pixelval == 3){
-      gluBuild2DMipmaps( GL_TEXTURE_2D, 3, width, height,GL_BGR, GL_UNSIGNED_BYTE, data );
+cerr << "pixelval3\n";
+      gluBuild2DMipmaps( GL_TEXTURE_2D, 3, width, height,GL_RGB, GL_UNSIGNED_BYTE, data );
+cerr << "after 3 build2DMipmaps\n";
    }else if(pixelval == 4){
-      gluBuild2DMipmaps( GL_TEXTURE_2D, 4, width, height,GL_BGRA, GL_UNSIGNED_BYTE, data );
+cerr << "pixelval4\n";
+      gluBuild2DMipmaps( GL_TEXTURE_2D, 4, width, height,GL_RGBA, GL_UNSIGNED_BYTE, data );
+cerr << "after 4 build2DMipmaps\n";
    }
    free( data );
 
