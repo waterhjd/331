@@ -14,8 +14,9 @@ void Character::display()
 {  
   if(m_display)
   {
+/*
    glEnable(GL_TEXTURE_2D);
-   
+
    // Enable alpha layer transparency
    glEnable(GL_BLEND);
    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -26,13 +27,13 @@ void Character::display()
 
    glDisable(GL_TEXTURE_2D);
    glFlush();
-/*
+*/
     glColor3fv(colours[4]);
     ImageLoader::rectangle(m_position_x, 
 							m_position_y, 
 							m_width, 
 							m_width);
-*/
+
    }
 }
 
@@ -40,7 +41,7 @@ void Character::display()
 void Character::jump() {
 	if (m_jumps < 2) {
    m_jumps++;
-		m_speed_y = 10;
+		m_speed_y = 20;
 		m_jumping = true;
 	}
 }
@@ -77,8 +78,8 @@ void Character::reset(){
    m_jumping = true;
 }
 void Character::init() {
-   m_charLeft = ImageLoader::LoadTexture(m_charLeftFile, m_width, m_height);
-   m_charRight = ImageLoader::LoadTexture(m_charRightFile, m_width, m_height);
+   //m_charLeft = ImageLoader::LoadTexture(m_charLeftFile, m_width, m_height);
+   //m_charRight = ImageLoader::LoadTexture(m_charRightFile, m_width, m_height);
 
 }
 Character::Character() {
