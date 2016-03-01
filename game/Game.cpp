@@ -167,7 +167,7 @@ void Game::init() {
 
 		m_scroller = new Scroller(m_character, m_width);
     
-    m_myGameObjects[m_gameObjects] = new Bunny();
+    m_myGameObjects[m_gameObjects] = new Bunny(m_height/3);
     m_gameObjects++;
 
 		// floor
