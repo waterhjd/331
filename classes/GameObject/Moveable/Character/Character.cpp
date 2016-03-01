@@ -42,7 +42,7 @@ void Character::jump() {
 //	if (m_jumps < 2) {
 	if (!m_jumping) {
    m_jumps++;
-		m_speed_y = 20;
+		m_speed_y = 12;
 		m_jumping = true;
 	}
 }
@@ -51,13 +51,13 @@ void Character::stopX() {
 }
 
 void Character::right() {
-	m_position_x += 2;
-  m_speed_x = 2;
+	m_position_x += 1;
+  m_speed_x = 1;
 }
 
 void Character::left() {
-	m_position_x -= 2;
-  m_speed_x = -2;
+	m_position_x -= 1;
+  m_speed_x = -1;
 }
 void Character::dead()
 {

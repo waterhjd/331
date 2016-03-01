@@ -42,7 +42,7 @@ class Moveable : public GameObject {
 		int m_position_x;
 		int m_position_y;
 		int m_speed_x;
-		int m_speed_y;
+		float m_speed_y;
 		int m_speed;
 		int m_width;
 		int m_height;
