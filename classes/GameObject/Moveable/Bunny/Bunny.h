@@ -35,7 +35,7 @@ class Bunny : public Moveable {
    void killed();
    
    Bunny(){};
-   Bunny(int height);   
+   Bunny(int xPos, int height);   
 };
 
 #endif /* BUNNY_H_ */

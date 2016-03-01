@@ -68,13 +68,13 @@ void Bunny::killed()
    m_display = false;
 }
 
-Bunny::Bunny(int height)
+Bunny::Bunny(int xPos, int height)
 {
    m_display = true;
    m_speed_x = 1;
    m_speed_y = -1;
    m_speed = 1;
-   m_position_x = 500;
+   m_position_x = xPos;
    m_position_y = height; 
    m_width = 40;
 }
