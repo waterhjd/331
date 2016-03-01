@@ -78,6 +78,8 @@ void Game::key(unsigned char key, int x, int y)
         case 'k':
             myCharacter->jump();
             break;
+        case  'r': 
+            myCharacter->reset();
     }
    }
     //glutPostRedisplay();
