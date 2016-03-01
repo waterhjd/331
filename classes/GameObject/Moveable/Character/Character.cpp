@@ -71,7 +71,7 @@ void Character::reset(){
    m_speed_y = -1;
    m_speed = 1;
    m_position_x = 200;
-   m_position_y = 450;
+   m_position_y = 45;
    m_width = 20;
    m_height = 20;
    m_jumping = true;
