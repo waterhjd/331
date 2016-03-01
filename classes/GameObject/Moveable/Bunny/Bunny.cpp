@@ -1,51 +1,61 @@
 #include "Bunny.h"
+#include <iostream>
 
-void Bunny::display()
-{  
-   if (disp) {
+using namespace std;
 
+void Bunny::display() {
+   if(m_display)
+   {
+      glColor3fv(colours[2]);
+      rectangle(m_position_x,
+                 m_position_y,
+                 m_width,
+                 m_width);
    }
 }
 
-void Bunny::update()
-{ 
-   if (disp) {
-
-   }
+void Bunny::update() {
+   // Walk left perpetually
+   m_position_x -= m_speed_x;
+   
 }
 
-void Bunny::move()
+bool Bunny::collide(Character* c)
 {
-    if (disp) {
+  int bunnyLeft = m_position_x;
+  int bunnyRight = m_position_x + m_width;
+  int bunnyBot = m_position_y;
+  int bunnyTop = m_position_y + m_width;
 
-   }
-  
-}
-
-bool Bunny::collide(Character *c) 
-{
-   if(disp){
+  if(m_display)
+  {
+      if((bunnyRight> c->get_left())&&(bunnyLeft < c->get_right())&&((((c->get_bottom() >= bunnyTop-5)&&(c->get_bottom() <= bunnyTop+10) ))))
+      {
+         this->killed();
+         
+         return true;
+      }
+     
       
-   }
-   return false;
+      if((bunnyRight > c->get_left())&&(bunnyLeft < c->get_right())&&(bunnyTop > c->get_bottom())) 
+      {
+         c->dead();
+      }
+     return true;
+  }
 }
-/*
-bool zapped(Lightning L)
+void Bunny::killed()
 {
-   return false;
-}
-*/
-Bunny::Bunny()
-{
-   disp=true;
-/*
-   m_position_x = 400;
-   m_position_y = 200;
-   m_width = 40;
-   m_speed_x = 3;
-   m_speed_y = 3;
-   m_speed = 1;
-   m_health = 100;
-*/
+   m_display = false;
 }
 
+Bunny::Bunny(int height)
+{
+   m_display = true;
+   m_speed_x = 1;
+   m_speed_y = -1;
+   m_speed = 1;
+   m_position_x = 500;
+   m_position_y = height; 
+   m_width = 40;
+}

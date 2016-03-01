@@ -9,6 +9,7 @@ using namespace std;
 class Character: public Moveable {
    private:
     bool m_jumping;
+    bool m_display;
    public:
     // void bounceX() {m_speed_x *= -1;};
     // void bounceY() {m_speed_y *= -1;};
@@ -19,6 +20,7 @@ class Character: public Moveable {
 		void left();
 		void stopJump() {m_jumping = false;};
     void display();
+    void dead();
     // void update();
     bool collide(Character c) {return false;};
     Character();
