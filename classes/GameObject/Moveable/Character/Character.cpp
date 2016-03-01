@@ -32,6 +32,19 @@ void Character::left() {
 void Character::dead()
 {
   m_display = false;
+  m_speed_x = 0;
+  m_speed_y = 0;
+}
+
+void Character::reset(){
+   m_display = true;
+   m_speed_y = -1;
+   m_speed = 1;
+   m_position_x = 200;
+   m_position_y = 250;
+   m_width = 20;
+   m_height = 20;
+   m_jumping = true;
 }
 
 Character::Character() {
@@ -42,6 +55,6 @@ Character::Character() {
   m_position_x = 200;
   m_position_y = 250;
   m_width = 20;
-	m_height = 20;
+  m_height = 20;
   m_jumping = true;
 }
