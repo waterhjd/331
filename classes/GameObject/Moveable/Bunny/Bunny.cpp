@@ -29,9 +29,11 @@ bool Bunny::collide(Character* c)
 
   if(m_display)
   {
-      if((bunnyRight> c->get_left())&&(bunnyLeft < c->get_right())&&((((c->get_bottom() >= bunnyTop-5)&&(c->get_bottom() <= bunnyTop+10) ))))
-      {
+      if((bunnyRight> c->get_left())&&(bunnyLeft < c->get_right())&&((((c->get_bottom() >= bunnyTop-10)&&(c->get_bottom() <= bunnyTop+20) ))))
+      {	
          this->killed();
+         c->stopJump();
+         c->stopX();
          
          return true;
       }
@@ -44,6 +46,23 @@ bool Bunny::collide(Character* c)
      return true;
   }
 }
+int Bunny::get_left()
+{
+   return (m_position_x);
+}
+int Bunny::get_right()
+{
+   return (m_position_x + m_width);
+}
+int Bunny::get_bot()
+{
+   return (m_position_y);
+}
+int Bunny::get_top()
+{
+   return (m_position_y + m_width);
+}
+
 void Bunny::killed()
 {
    m_display = false;
