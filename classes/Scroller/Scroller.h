@@ -19,6 +19,7 @@ class Scroller {
 		int m_x_distance;
 		int m_window_width;
 	public:
+      Border* getLeftBorder() {return m_left_border;};
 		void update();
 		Scroller(Character *c, int window_width);
 };

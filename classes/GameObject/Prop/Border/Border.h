@@ -9,6 +9,7 @@ class Border: public Prop {
       int m_x1,m_y1, m_x2, m_y2;
       
    public:
+    int getX1() {return m_x1;};
     void display () {};
     void update (int x_offset);
     void update () {};
@@ -16,5 +17,4 @@ class Border: public Prop {
     Border(int x_1, int y_1, int x_2, int y_2);
     Border();
 };
-
 #endif /* BORDER_H_ */

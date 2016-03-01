@@ -14,7 +14,6 @@
 
 #include "../classes/ImageLoader/ImageLoader.h"
 
-bool Game::c_running = false;
 int splash_w, splash_h;
 
 // We do not use this function yet, but you might want it.
@@ -55,22 +54,26 @@ void Game::run() {
 void Game::key(unsigned char key, int x, int y)
 {
     Character *myCharacter = dynamic_cast<Character*>(Game::getInstance().character());
-    // Character *myCharacter = Game::m_character;
-   if (!Game::c_running) {
+   if (!Game::getInstance().isRunning()) {
       if (key == ' ') {
-         Game::c_running = true;
+         Game::getInstance().setRun(true);
+      } else if (key == 'r') {
+         Game::getInstance().reset();
+      } else if (key == 27) {
+         glutDestroyWindow (Game::getInstance().getWinID());
+         exit(0);
       }
    } else {
     switch (key)
     {
         case 'p' :
-            Game::c_running = false;
+            Game::getInstance().setRun(false);
             break;
         case 'h' :
 				myCharacter->left();
             break;
         case 'j' :
-            myCharacter->stop();
+            myCharacter->stopX();
             break;
         case 'l':
 				myCharacter->right();
@@ -78,8 +81,13 @@ void Game::key(unsigned char key, int x, int y)
         case 'k':
             myCharacter->jump();
             break;
-        case  'r': 
+        case 'r': 
             myCharacter->reset();
+            break;
+        case 27:
+         glutDestroyWindow (Game::getInstance().getWinID());
+         exit(0);
+         break;
     }
    }
     //glutPostRedisplay();
@@ -101,7 +109,7 @@ void Game::splash() {
    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,GL_REPLACE);
    //glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
    glBindTexture (GL_TEXTURE_2D, m_splashTexture);
-   ImageLoader::rectangle(0,0, m_width, m_height);
+   ImageLoader::rectangle(m_scroller->getLeftBorder()->getX1(),0, m_width, m_height);
 
       // Other parts of the program have been doing speical things with
    // lights and textures. We want a flat rectangle so turn them all off.
@@ -110,7 +118,7 @@ void Game::splash() {
    glLoadIdentity();//load identity matrix
    glEnable(GL_COLOR_MATERIAL); // Needed so glColor3f controls the color
 
-   char string[1200];
+   char string[40];
    sprintf(string, "Paused\n");
    glColor3f(1.0, 0.0, 0.0); // Red Text
    ImageLoader::RenderString((m_width/2)-40, m_height/2, GLUT_BITMAP_TIMES_ROMAN_24, string);
@@ -119,46 +127,59 @@ void Game::splash() {
 }
 void Game::update()
 {
-   m_character->update();
-   for(int i=0; i<m_gameObjects; i++)
-      m_myGameObjects[i]->collide(m_character);
 
-   for(int i=0; i<m_gameObjects; i++)
-      m_myGameObjects[i]->update();
+      if (Game::getInstance().isRunning()) {
+         m_character->update();
+         for(int i=0; i<m_gameObjects; i++)
+            m_myGameObjects[i]->update();
+         for(int i=0; i<m_gameObjects; i++)
+            m_myGameObjects[i]->collide(m_character);
+      
+         if (m_character->isDead()) {
+            Game::getInstance().setGameOver(true);
+         }
+      }
 
-   glClearColor(1.0, 1.0, 1.0, 0.0);
+      glClearColor(1.0, 1.0, 1.0, 0.0);
 	 // clear the screen
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     
+      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     
    // Display the current score
-   char string[40];
-   sprintf(string, "Score:%d\n", m_score);
-   sprintf(string, "Press P to Pause\n");
-   RenderString(0, m_height-20, GLUT_BITMAP_TIMES_ROMAN_24, string);
+      char string[40];
+      sprintf(string, "Score:%d\n", m_score);
+      sprintf(string, "Press P to Pause\n");
+      RenderString(m_scroller->getLeftBorder()->getX1(), m_height-20, GLUT_BITMAP_TIMES_ROMAN_24, string);
 
-   glMatrixMode(GL_MODELVIEW);
-   glLoadIdentity();
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
 
-	 m_scroller->update();
+	   m_scroller->update();
 
-   for(int i=0; i<m_gameObjects; i++)
-      m_myGameObjects[i]->display();
+      for(int i=0; i<m_gameObjects; i++)
+         m_myGameObjects[i]->display();
+     
+     glFlush();
    
-   glFlush();
-
-
-   if (!isRunning()) return splash();
+       if (Game::getInstance().isGameOver()) return gameOver();
+       else if (!Game::getInstance().isRunning()) return splash();
 
 }
-bool Game::isRunning() {
-   return c_running;
+
+void Game::gameOver() {
+   Game::getInstance().setRun(false);
+   glClearColor(1.0, 1.0, 1.0, 0.0);
+	// clear the screen
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     
+   
+   char string[80];
+   sprintf(string, "Game Over\nPress R to Reset\n");
+   glColor3f(1.0, 0.0, 0.0); // Red Text
+   ImageLoader::RenderString(m_scroller->getLeftBorder()->getX1()+(m_width/2), m_height/2, GLUT_BITMAP_TIMES_ROMAN_24, string);
+   glDisable(GL_COLOR_MATERIAL);
+ 
 }
 
-void Game::setRun(bool b) {
-   c_running = b;
-}
-
-
-void Game::init() {
+void Game::reset() {
+    Game::getInstance().setGameOver(false);
 
     // Set up all the objects in the game that m_character can collide with in an array
     // called m_myGameObjects. m_gameObjects tells how many are defined.
@@ -179,13 +200,18 @@ void Game::init() {
     m_myGameObjects[m_gameObjects] = new Wall(200,m_height/2,300,m_height/2);
     m_gameObjects++;
 
+
+}
+void Game::init() {
+
+    reset(); 
     // Set the seed for the random variable generator just in case we need it.
     srandom(time(NULL));
 
     glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB); // Use double buffering for smoother images
     glutInitWindowSize(m_width, m_height);
     glutInitWindowPosition(0, 0);
-    glutCreateWindow("Cockroach vs. Unicorns");
+    m_windowID = glutCreateWindow("Cockroach vs. Unicorns");
 
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glShadeModel(GL_SMOOTH);

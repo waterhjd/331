@@ -54,16 +54,19 @@ class Game {
       int m_gameObjects;
       GameObject *m_myGameObjects[MAX_OBJECTS];
       int m_score;
+      GLint m_windowID;
       bool m_running;
+      bool m_gameOver;
    public:
+      GLint getWinID() {return m_windowID;};
       // Functions for GL. key handles keyboard input. Run is the comuting loop
       // Run calls update
       static void key(unsigned char key, int x, int y);
       static void run();
       static void idle();
       static void timer(int id);
-      static bool c_running;
       void update();
+
 
       void RenderString(float x, float y, void *font, const char* string);
       void updateScore(int addMe) {m_score += addMe;};
@@ -72,10 +75,13 @@ class Game {
       GameObject *character() {return m_character;};
 
       void init();
-      bool isRunning();
-      void setRun(bool b);
       void splash();
-
+      void gameOver();
+      bool isGameOver() {return m_gameOver;};
+      void setGameOver(bool g) {m_gameOver = g;};
+      void reset();
+      bool isRunning() {return m_running;};
+      void setRun(bool b) {m_running = b;};
       GLfloat frand();
 };
 
