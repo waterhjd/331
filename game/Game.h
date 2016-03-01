@@ -6,6 +6,7 @@
 #define GAME_H_
 
 #include "../classes/GameObject/Moveable/Character/Character.h"
+#include "../classes/Scroller/Scroller.h"
 
 class GameObject;
 class Character;
@@ -29,7 +30,7 @@ class Game {
         Game() {
            m_margine = 0;
            m_width = 600;
-           m_height = 440;
+           m_height = 600;
         }; // Default Constructor (the {} brackets) are needed here, even if it is empty.
         Game(Game const&);           // Don't Implement
         void operator=(Game const&); // Don't implement
@@ -43,11 +44,13 @@ class Game {
       int m_height;
       int m_margine;
       int m_scorePanelWidth;
+			int m_x_distance;
       GLuint m_splashTexture;
 
       // Items in the game
       Character m_myCharacter;
 			Character *m_character;
+			Scroller *m_scroller;
       int m_gameObjects;
       GameObject *m_myGameObjects[MAX_OBJECTS];
       int m_score;

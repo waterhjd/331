@@ -1,9 +1,13 @@
 CC = g++
 LDLIBS = -lglut -lGL -lGLU -lX11 -lm
-OBJ = game/Game.cpp \
+OBJ = main.cpp \
+			game/Game.cpp \
+      classes/GameObject/Moveable/Moveable.cpp \
       classes/GameObject/Moveable/Character/Character.cpp \
       classes/GameObject/Moveable/Bunny/Bunny.cpp \
       classes/GameObject/Prop/Wall/Wall.cpp \
+			classes/GameObject/Prop/Border/Border.cpp \
+			classes/Scroller/Scroller.cpp \
       classes/ImageLoader/ImageLoader.cpp
 
 All: $(OBJ)

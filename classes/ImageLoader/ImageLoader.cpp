@@ -11,7 +11,9 @@
 GLuint ImageLoader::LoadTexture( const char * filename, int &w, int &h )
 {
   GLuint texture;
-  unsigned int width, height;
+  int width = 1024, height = 512;
+
+  unsigned short depth;
   unsigned char * data;
   unsigned long i;                    // standard counter.
 
@@ -23,9 +25,6 @@ GLuint ImageLoader::LoadTexture( const char * filename, int &w, int &h )
      printf("Can't load picture file %s  \n",filename);
      return 0;
   }
-  //unsigned char header[54];
-  width = 1024;//*(int*)&header;
-  height = 768;
 
    int fileSize;
    fseek(file, 2, SEEK_SET);
@@ -36,56 +35,79 @@ GLuint ImageLoader::LoadTexture( const char * filename, int &w, int &h )
     }
     //printf("Size of %s: %lu\n", filename, fileSize);
 
-    // seek through the bmp header, up to the width/height:
-    fseek(file, 18, SEEK_SET);
-    // read the width
-    if ((i = fread(&width, 4, 1, file)) != 1) 
-	{
-		printf("Error reading width from %s.\n", filename);
-		return 0;
-    }
-    printf("Width of %s: %lu\n", filename, width); 
-    
-    // read the height 
-    if ((i = fread(&height, 4, 1, file)) != 1) 
-	{
-		printf("Error reading height from %s.\n", filename); 
-		return 0;
-    }
-    printf("Height of %s: %lu\n", filename, height);
+   // seek through the bmp header, up to the width/height:
+   fseek(file, 18, SEEK_SET);
+   // read the width
+   if ((i = fread(&width, 4, 1, file)) != 1) 
+   {
+      printf("Error reading width from %s.\n", filename);
+      return 0;
+   }
+   //printf("Width of %s: %lu\n", filename, width); 
 
-  fseek(file, 3*13, SEEK_SET); // Debug Dr. J Seek past the header. How big is the 
-                               // header of a bmp file?
-  data = (unsigned char *)malloc( width * height * 3 );
-  //int size = fseek(file,);
+   // read the height 
+   if ((i = fread(&height, 4, 1, file)) != 1) 
+   {
+      printf("Error reading height from %s.\n", filename); 
+      return 0;
+   }
+   //printf("Height of %s: %lu\n", filename, height);
 
-  fread( data, width * height * 3, 1, file );
-  fclose( file );
+   // read the colour depth
+   fseek(file, 28, SEEK_SET);
+   if ((i = fread(&depth, 2, 1, file)) != 1)
+   {
+      printf("Error reading colour depth from %s.\n", filename); 
+      return 0;
+   }
+   printf("Depth of %s: %lu\n", filename, depth); 
 
-  w = width;
-  h = height;
+   // this file will only read files with depth of 24 and 32
+   if(depth != 24 && depth != 32){
+      printf("Unexpected colour depth");
+      return 0;
+   }
 
-  //.BMP files have colours in BGR order.
-  for(int i = 0; i < width * height ; ++i)
-  {
-     int index = i*3;
-     unsigned char B,R, G;
-     B = data[index];
-     G = data[index+1];
-     R = data[index+2];
+   // get the size of the header
+   fseek(file, 10, SEEK_SET);
+   int offset;
+   if ((i = fread(&offset, 4, 1, file)) != 1) 
+   {
+      printf("Error reading offset from %s.\n", filename);
+      return 0;
+   }
+   printf("offset of %s: %lu\n", filename, offset); 
 
-     data[index] = R;
-     data[index+1] = G;
-     data[index+2] = B;
-  }
+   // Debug Dr. J Seek past the header. How big is the 
+   // header of a bmp file?
+   fseek(file, offset, SEEK_SET); 
+
+   //fseek(file,headersize,SEEK_SET);
+
+   // pixelval is the number of ints (4 bytes) per pixel
+   // ex: for a 24-bit BMP file we expect 3 ints per pixel
+   unsigned short pixelval = depth / 8;
+   data = (unsigned char *)malloc( width * height * pixelval );
+   //int size = fseek(file,);
+   fread( data, width * height * pixelval, 1, file );
+   fclose( file );
+
+   w = width;
+   h = height;
+  
    glGenTextures( 1, &texture );
    glBindTexture( GL_TEXTURE_2D, texture );
+   glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,GL_MODULATE );
+   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST );
 
-   glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR );
-   glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
-   glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_REPEAT );
-   glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,GL_REPEAT );
-   gluBuild2DMipmaps( GL_TEXTURE_2D, 3, width, height,GL_RGB, GL_UNSIGNED_BYTE, data );
+   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
+   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_REPEAT );
+   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,GL_REPEAT );
+   if(pixelval == 3){
+      gluBuild2DMipmaps( GL_TEXTURE_2D, 3, width, height,GL_BGR, GL_UNSIGNED_BYTE, data );
+   }else if(pixelval == 4){
+      gluBuild2DMipmaps( GL_TEXTURE_2D, 4, width, height,GL_BGRA, GL_UNSIGNED_BYTE, data );
+   }
    free( data );
 
    return texture;

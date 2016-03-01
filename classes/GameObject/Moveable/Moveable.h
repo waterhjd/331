@@ -4,25 +4,48 @@
 #include "../GameObject.h"
 
 class Moveable : public GameObject {
-   public:
-      int getX() {return m_position_x;};
-      int getY() {return m_position_y;};
-      int getR() {return m_width;};
-      void setY(int y) {m_position_y=y;};
-      virtual bool collide (Character *c) { return false; }
+  public:
+		virtual void update();
+		void display();
 
+		// get positions 
+		int get_left();
+		int get_right();
+		int get_top();
+		int get_bottom();
 
-   private:
+		// get character size
+		int get_width();
+		int get_height();
 
-   protected:
-      int m_position_x;
-      int m_position_y;
-      int m_speed_x;
-      int m_speed_y;
-      int m_speed;
-      int m_width;
-      int m_height;
+		// get speeds
+		int get_speed_down();
+		int get_speed_up();
+		int get_speed_left();
+		int get_speed_right();
 
+		// set positions
+		void set_left(int v);
+		void set_right(int v);
+		void set_bottom(int y);
+		void set_top(int y);
+
+		virtual bool collide(Character *c);
+
+		// set default values in case they arent set 
+		// in inheriting class
+		Moveable();
+
+  private:
+
+  protected:
+		int m_position_x;
+		int m_position_y;
+		int m_speed_x;
+		int m_speed_y;
+		int m_speed;
+		int m_width;
+		int m_height;
 
 };
 

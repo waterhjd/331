@@ -125,9 +125,9 @@ void Game::update()
       m_myGameObjects[i]->update();
 
    glClearColor(1.0, 1.0, 1.0, 0.0);
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     // clear the screen
-//clear the screen
-    // Display the current score
+	 // clear the screen
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     
+   // Display the current score
    char string[40];
    sprintf(string, "Score:%d\n", m_score);
    sprintf(string, "Press P to Pause\n");
@@ -136,8 +136,8 @@ void Game::update()
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
 
+	 m_scroller->update();
 
-   m_character->display();
    for(int i=0; i<m_gameObjects; i++)
       m_myGameObjects[i]->display();
    
@@ -157,25 +157,24 @@ void Game::setRun(bool b) {
 
 
 void Game::init() {
-   
+
     // Set up all the objects in the game that m_character can collide with in an array
     // called m_myGameObjects. m_gameObjects tells how many are defined.
     m_gameObjects = 0 ;
 		m_myGameObjects[m_gameObjects] = new Character();
 		m_gameObjects ++ ;
     m_character = dynamic_cast<Character*>(m_myGameObjects[0]);
+
+		m_scroller = new Scroller(m_character, m_width);
     
-    m_myGameObjects[m_gameObjects] = new Bunny();
+    m_myGameObjects[m_gameObjects] = new Bunny(m_height/3);
     m_gameObjects++;
-    // m_myGameObjects[m_gameObjects] = new Paddle(m_width/2,5); // Paddle
-    // m_gameObjects++;
-    // m_myGameObjects[m_gameObjects] = new Wall(m_scorePanelWidth,0,m_scorePanelWidth,m_height, true ); // Left Wall
-    // m_gameObjects++;
-    // m_myGameObjects[m_gameObjects] = new Wall(m_width,0,m_width,m_height, false ); // Right Wall
-    // m_gameObjects++;
-    // m_myGameObjects[m_gameObjects] = new Wall(0,m_height,m_width,m_height, false ); // Top Wall
-    // m_gameObjects++;
-    m_myGameObjects[m_gameObjects] = new Wall(0,m_height/3,m_width,m_height/3, true ); // Floor
+
+		// floor
+    m_myGameObjects[m_gameObjects] = new Wall(0,m_height/3,m_width,m_height/3);
+    m_gameObjects++;
+
+    m_myGameObjects[m_gameObjects] = new Wall(200,m_height/2,300,m_height/2);
     m_gameObjects++;
 
     // Set the seed for the random variable generator just in case we need it.
@@ -220,8 +219,3 @@ void Game::init() {
 }
 
 
-int main(int argc, char **argv) {
-    glutInit(&argc, argv);
-    Game::getInstance().init();
-
-}
