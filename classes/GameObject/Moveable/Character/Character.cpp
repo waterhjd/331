@@ -30,13 +30,13 @@ void Character::stopX() {
 }
 
 void Character::right() {
-	m_position_x += 5;
-  m_speed_x = 5;
+	m_position_x += 2;
+  m_speed_x = 2;
 }
 
 void Character::left() {
-	m_position_x -= 5;	
-  m_speed_x = -5;
+	m_position_x -= 2;	
+  m_speed_x = -2;
 }
 void Character::dead()
 {
