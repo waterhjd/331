@@ -88,6 +88,7 @@ GLuint ImageLoader::LoadTexture( const char * filename, int &w, int &h )
    // ex: for a 24-bit BMP file we expect 3 ints per pixel
    unsigned short pixelval = depth / 8;
    data = (unsigned char *)malloc( width * height * pixelval );
+   printf("Data: %p\n", data);
    //int size = fseek(file,);
    fread( data, width * height * pixelval, 1, file );
    fclose( file );
@@ -95,21 +96,55 @@ GLuint ImageLoader::LoadTexture( const char * filename, int &w, int &h )
    w = width;
    h = height;
   
+   if(pixelval == 3){
+      for(int i = 0; i < width * height ; ++i)
+      {
+         int index = i*3;
+         unsigned char B,R;
+         B = data[index];
+         R = data[index+2];
+
+         data[index] = R;
+         data[index+2] = B;
+      }
+   }else if(pixelval == 4){
+      for(int i = 0; i < width * height ; ++i)
+      {
+         int index = i*4;
+         unsigned char A, G, B, R;
+         A = data[index];
+         B = data[index+1];
+         G = data[index+2];
+         R = data[index+3];
+
+         data[index] = R;
+         data[index+1] = G;
+         data[index+2] = B;
+         data[index+3] = A;
+      }
+   }
+
    glGenTextures( 1, &texture );
    glBindTexture( GL_TEXTURE_2D, texture );
    glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,GL_MODULATE );
    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST );
-
    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_REPEAT );
    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,GL_REPEAT );
+   
+   printf("Data: %p\n", data);
    if(pixelval == 3){
-      gluBuild2DMipmaps( GL_TEXTURE_2D, 3, width, height,GL_BGR, GL_UNSIGNED_BYTE, data );
+      printf("3pixel\n");
+      gluBuild2DMipmaps( GL_TEXTURE_2D, 3, width, height,GL_RGB, GL_UNSIGNED_BYTE, data );
    }else if(pixelval == 4){
-      gluBuild2DMipmaps( GL_TEXTURE_2D, 4, width, height,GL_BGRA, GL_UNSIGNED_BYTE, data );
+      printf("4pixel\n");
+      gluBuild2DMipmaps( GL_TEXTURE_2D, 4, width, height,GL_RGBA, GL_UNSIGNED_BYTE, data );
    }
+   printf("done\n");
+   printf("freeing data\n");
    free( data );
 
+   printf("returning texture\n");
    return texture;
 }
 
@@ -191,10 +226,12 @@ void ImageLoader::circle(GLfloat x, GLfloat y, GLfloat r, int n)
    arc(x, y, r, n, 0, n);
 }
 
-void ImageLoader::rectangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height) 
+void ImageLoader::rectangleFile(GLfloat x, GLfloat y, GLfloat width, GLfloat height) 
 {
-   glTranslated(x,y,0);
-   glBegin(GL_QUADS); // Note: A GL_QUADS is similar to a GL_POLYGON, but it limits the 
+   glBegin(GL_QUADS); 
+   glTranslated(x, y, 0);
+   glRotated(0,0,0,0);
+   // Note: A GL_QUADS is similar to a GL_POLYGON, but it limits the 
                       // number of vertices to 4. This allows OpenGL to break it up 
                       // into two triangles quite simply for faster processing. 
                       // This is needed if we are adding textures.
@@ -206,6 +243,16 @@ void ImageLoader::rectangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height)
    }
    glEnd();
 }
+void ImageLoader::rectangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height) {
+       glBegin(GL_POLYGON);
+       {
+          glVertex2f(x,y);
+          glVertex2f(x+width,y);
+          glVertex2f(x+width,y+ height);
+          glVertex2f(x,y+ height);
+       }
+       glEnd();
+    }
 
 void ImageLoader::line(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2, GLfloat thickness) 
 {

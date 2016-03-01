@@ -3,7 +3,7 @@
 void Wall::display ()
 {
    glColor3fv(colours[6]); // Set the color of the wall
-   line(m_x1,m_y1, m_x2,m_y2);
+   ImageLoader::line(m_x1,m_y1, m_x2,m_y2);
 }
 
 bool Wall::collide (Character *c)

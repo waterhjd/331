@@ -12,6 +12,10 @@ class Character: public Moveable {
     int m_jumps;
     bool m_display;
     bool m_dead;
+    int m_currImg;
+
+    GLuint m_charLeft, m_charRight;
+    GLuint m_textures[1];
    public:
     // void bounceX() {m_speed_x *= -1;};
     // void bounceY() {m_speed_y *= -1;};
@@ -24,6 +28,7 @@ class Character: public Moveable {
     void display();
     void reset();
     void dead();
+    void init();
     bool isDead() {return m_dead;};
     void update();
     bool collide(Character c) {return false;};

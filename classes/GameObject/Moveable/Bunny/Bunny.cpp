@@ -7,7 +7,7 @@ void Bunny::display() {
    if(m_display)
    {
       glColor3fv(colours[2]);
-      rectangle(m_position_x,
+      ImageLoader::rectangle(m_position_x,
                  m_position_y,
                  m_width,
                  m_width);

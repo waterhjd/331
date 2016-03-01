@@ -11,6 +11,7 @@ class ImageLoader {
     static void RenderString(float x, float y, void *font, const char* string);
     static void arc(GLfloat x, GLfloat y, GLfloat r, int n, int s, int e);
     static void circle(GLfloat x, GLfloat y, GLfloat r, int n);
+    static void rectangleFile(GLfloat x, GLfloat y, GLfloat width, GLfloat height); 
     static void rectangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height); 
     static void line(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2, GLfloat thickness=5.0);
 };

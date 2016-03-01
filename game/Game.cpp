@@ -14,8 +14,8 @@
 
 #include "../classes/ImageLoader/ImageLoader.h"
 
-int splash_w, splash_h;
-
+const char* m_splashFile = "./images/splash2.bmp";
+const char* m_bgFile = "./images/game_bg.bmp";
 // We do not use this function yet, but you might want it.
 GLfloat Game::frand() {
     return random()/(GLfloat)RAND_MAX;
@@ -104,12 +104,24 @@ void Game::RenderString(float x, float y, void *font, const char* string)
 
   glutBitmapString(font, string2);
 }
+void Game::bgDisp() {
+   glEnable(GL_TEXTURE_2D);
+   glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,GL_REPLACE);
+   glBindTexture (GL_TEXTURE_2D, m_bgTexture);
+   ImageLoader::rectangleFile(0,0, bg_w, m_height);
+
+      // Other parts of the program have been doing speical things with
+   // lights and textures. We want a flat rectangle so turn them all off.
+   glDisable(GL_TEXTURE_2D); // Disable any textures. We want color!
+ 
+}
+
 void Game::splash() {
    glEnable(GL_TEXTURE_2D);
    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,GL_REPLACE);
    //glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
    glBindTexture (GL_TEXTURE_2D, m_splashTexture);
-   ImageLoader::rectangle(m_scroller->getLeftBorder()->getX1(),0, m_width, m_height);
+   ImageLoader::rectangleFile(m_scroller->getLeftBorder()->getX1(),0, m_width, m_height);
 
       // Other parts of the program have been doing speical things with
    // lights and textures. We want a flat rectangle so turn them all off.
@@ -153,14 +165,14 @@ void Game::update()
       glLoadIdentity();
 
 	   m_scroller->update();
-
+      bgDisp();
       for(int i=0; i<m_gameObjects; i++)
          m_myGameObjects[i]->display();
      
      glFlush();
    
-       if (Game::getInstance().isGameOver()) return gameOver();
-       else if (!Game::getInstance().isRunning()) return splash();
+       if (Game::getInstance().isGameOver()) gameOver();
+       else if (!Game::getInstance().isRunning()) splash();
 
 }
 
@@ -187,6 +199,7 @@ void Game::reset() {
 		m_myGameObjects[m_gameObjects] = new Character();
 		m_gameObjects ++ ;
     m_character = dynamic_cast<Character*>(m_myGameObjects[0]);
+    m_character->init();
 
 		m_scroller = new Scroller(m_character, m_width);
     
@@ -202,9 +215,12 @@ void Game::reset() {
 
 
 }
+void Game::loadTextures() {
+   m_splashTexture = ImageLoader::LoadTexture(m_splashFile, splash_w, splash_h);
+   m_bgTexture = ImageLoader::LoadTexture(m_bgFile, bg_w, bg_h);
+}
 void Game::init() {
 
-    reset(); 
     // Set the seed for the random variable generator just in case we need it.
     srandom(time(NULL));
 
@@ -237,8 +253,8 @@ void Game::init() {
     glutKeyboardFunc(Game::key); // Keyboard input
     glutDisplayFunc(Game::run);  // Display frames
     //glutIdleFunc(Game::run);    // Wait time between frames.
-
-    m_splashTexture = ImageLoader::LoadTexture("./images/cvuSplash.bmp", splash_w, splash_h);
+    reset(); 
+    Game::loadTextures();
 
     glutMainLoop(); // glutMainLoop enters the GLUT event processing loop. 
                     //This routine should be called at most once in a GLUT program. 

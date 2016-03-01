@@ -46,6 +46,9 @@ class Game {
       int m_scorePanelWidth;
 			int m_x_distance;
       GLuint m_splashTexture;
+      int splash_w, splash_h;
+      GLuint m_bgTexture;
+      int bg_w, bg_h;
 
       // Items in the game
       Character m_myCharacter;
@@ -59,6 +62,7 @@ class Game {
       bool m_gameOver;
    public:
       GLint getWinID() {return m_windowID;};
+      void loadTextures();
       // Functions for GL. key handles keyboard input. Run is the comuting loop
       // Run calls update
       static void key(unsigned char key, int x, int y);
@@ -75,6 +79,7 @@ class Game {
       GameObject *character() {return m_character;};
 
       void init();
+      void bgDisp();
       void splash();
       void gameOver();
       bool isGameOver() {return m_gameOver;};
